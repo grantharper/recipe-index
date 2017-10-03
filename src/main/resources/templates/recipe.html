@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+  <div class="container">
+  <h3 th:text="${recipe.title}"></h3>
+  <div >
+    <ul>
+    <li th:each="ingredient : ${recipe.ingredients}"><a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${ingredient.name}"></a></li>
+    </ul>
+  </div>
+  <form th:action="@{/recipes/} + ${recipe.id} + '/delete'" method="post">
+  <button type="submit" class="btn btn-danger">Delete Recipe</button>
+  </form>
+  </div>
+  
+  <!-- <a th:href="@{/recipes/add}">Add a Recipe</a>
+   <a th:href="@{/recipes}">View All Recipes</a>
+   <a th:href="@{/ingredients}">View All Ingredients</a> -->
+  
+</body>
+</html>

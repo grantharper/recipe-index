@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+  <div class="container">
+
+  <h1>All Ingredients</h1>
+  <table class="table">
+  <thead>
+  <tr><th>Ingredient Name</th><th>Recipes</th></tr>
+    
+  </thead>
+  <tbody>
+  <tr th:each="ingredient : ${ingredients}">
+    <td><a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${ingredient.name}"></a></td>
+    <td><span th:each="recipe, status : ${ingredient.recipes}" >
+    <a th:href="@{/recipes/} + ${recipe.id}" th:text="${status.last ? recipe.title + ' (' + recipe.pageNumber + ')' : recipe.title + ' (' + recipe.pageNumber + '), '}"></a>
+    </span></td>
+  </tr>
+  </tbody>
+  
+  </table>
+  </div>
+</body>
+</html>
