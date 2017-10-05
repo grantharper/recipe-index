@@ -12,5 +12,11 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>
 {
   @Query("select r from Recipe r order by r.pageNumber asc")
   List<Recipe> findAllOrderByPageNumber();
+
+  List<Recipe> findByTitleContains(String recipeTitle);
+  
+  List<Recipe> findByIngredientsNameContains(String ingredientName);
+  
+  List<Recipe> findDistinctRecipeByIngredientsNameContainsOrTitleContains(String ingredientName, String recipeTitle);
   
 }

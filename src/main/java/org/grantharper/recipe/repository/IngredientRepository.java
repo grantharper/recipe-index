@@ -14,4 +14,6 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long>
   
   @Query("select i from Ingredient i order by i.name asc")
   List<Ingredient> findAllOrderByName();
+  
+  List<Ingredient> findByNameContains(String ingredientName);
 }

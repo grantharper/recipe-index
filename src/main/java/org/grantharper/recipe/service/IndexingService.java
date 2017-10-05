@@ -120,6 +120,21 @@ public class IndexingService implements IndexingContract
     ingredientRepo.delete(ingredient);
     
   }
+
+  @Override
+  public List<Recipe> searchRecipesByTitle(String recipeTitle)
+  {
+    List<Recipe> recipeResults = recipeRepo.findByTitleContains(recipeTitle);
+    return recipeResults;
+  }
+
+  @Override
+  public List<Recipe> searchRecipes(String searchTerm)
+  {
+    List<Recipe> recipeResults = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContains(searchTerm, searchTerm);
+    
+    return recipeResults;
+  }
   
   
 

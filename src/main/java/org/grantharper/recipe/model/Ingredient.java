@@ -55,6 +55,14 @@ public class Ingredient implements Comparable<Ingredient>
   {
     this.recipes = recipes;
   }
+  
+  
+
+  @Override
+  public String toString()
+  {
+    return "Ingredient [id=" + id + ", name=" + name + "]";
+  }
 
   @Override
   public int hashCode()

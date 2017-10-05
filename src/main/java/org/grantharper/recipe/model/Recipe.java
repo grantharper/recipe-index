@@ -69,6 +69,14 @@ public class Recipe
   {
     this.ingredients = ingredients;
   }
+  
+  
+
+  @Override
+  public String toString()
+  {
+    return "Recipe [id=" + id + ", title=" + title + ", pageNumber=" + pageNumber + "]";
+  }
 
   @Override
   public int hashCode()

@@ -1,6 +1,7 @@
 package org.grantharper.recipe.controller;
 
 import org.grantharper.recipe.domain.RecipePage;
+import org.grantharper.recipe.domain.RecipeSearch;
 import org.grantharper.recipe.service.IndexingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +81,17 @@ public class RecipeController
   {
     indexingService.deleteIngredientById(ingredientId);
     return "redirect:/ingredients";
+  }
+  
+  @RequestMapping(value = "/recipes/search", method = RequestMethod.GET)
+  public String getSearchRecipes(Model model){
+    model.addAttribute("searchRecipe", new RecipeSearch());
+    return "search-recipes";
+  }
+  
+  @RequestMapping(value = "/recipes/search", method = RequestMethod.POST)
+  public String searchRecipes(Model model, @ModelAttribute("searchRecipe") RecipeSearch recipeSearch){
+    model.addAttribute("recipeResults", indexingService.searchRecipes(recipeSearch.getSearchTerm()));
+    return "search-recipes";
   }
 }

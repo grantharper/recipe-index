@@ -22,4 +22,8 @@ public interface IndexingContract
   public void deleteRecipeById(Long recipeId);
   
   public void deleteIngredientById(Long ingredientId);
+  
+  public List<Recipe> searchRecipesByTitle(String recipeTitle);
+  
+  public List<Recipe> searchRecipes(String ingredientName);
 }
