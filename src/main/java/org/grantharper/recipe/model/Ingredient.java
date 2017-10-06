@@ -95,7 +95,7 @@ public class Ingredient implements Comparable<Ingredient>
   @Override
   public int compareTo(Ingredient other)
   {
-    return other.getName().compareTo(this.getName());
+    return this.getName().compareTo(other.getName());
   }
 
   

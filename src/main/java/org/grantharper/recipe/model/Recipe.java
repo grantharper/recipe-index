@@ -14,7 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Recipe
+public class Recipe implements Comparable<Recipe>
 {
 
   @Id
@@ -112,6 +112,12 @@ public class Recipe
    
     return false;
 
+  }
+
+  @Override
+  public int compareTo(Recipe other)
+  {
+    return this.getTitle().compareTo(other.getTitle());
   }
 
 }

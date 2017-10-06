@@ -39,7 +39,7 @@ public class IndexingService implements IndexingContract
 
   }
 
-  private void parseIngredients(RecipePage recipePage, Recipe recipe)
+  public void parseIngredients(RecipePage recipePage, Recipe recipe)
   {
     // parse ingredients based on commas
     List<String> ingredientNames = Arrays.asList(recipePage.getIngredients().split(","));
@@ -68,12 +68,6 @@ public class IndexingService implements IndexingContract
   public List<Recipe> viewRecipes()
   {
     List<Recipe> recipes = recipeRepo.findAllOrderByPageNumber();
-//    List<RecipePage> recipePages = new ArrayList<>();
-//    for(Recipe recipe: recipes){
-//      RecipePage recipePage = new RecipePage();
-//      
-//      recipePages.add(recipePage);
-//    }
     
     return recipes;
   }
@@ -173,9 +167,6 @@ public class IndexingService implements IndexingContract
     recipeRepo.save(recipe);
     
   }
-
-
-  
   
 
 }
