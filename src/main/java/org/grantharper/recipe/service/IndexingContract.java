@@ -19,6 +19,10 @@ public interface IndexingContract
   
   public Recipe viewRecipeById(Long recipeId);
   
+  public RecipePage editViewRecipeById(Long recipeId);
+  
+  public void updateRecipe(Long recipeId, RecipePage recipePage);
+  
   public void deleteRecipeById(Long recipeId);
   
   public void deleteIngredientById(Long ingredientId);

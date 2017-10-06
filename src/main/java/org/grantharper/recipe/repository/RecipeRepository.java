@@ -17,6 +17,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long>
   
   List<Recipe> findByIngredientsNameContains(String ingredientName);
   
-  List<Recipe> findDistinctRecipeByIngredientsNameContainsOrTitleContains(String ingredientName, String recipeTitle);
+  List<Recipe> findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(String ingredientName, String recipeTitle);
   
 }

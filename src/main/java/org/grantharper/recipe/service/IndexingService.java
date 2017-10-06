@@ -2,6 +2,7 @@ package org.grantharper.recipe.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,14 @@ public class IndexingService implements IndexingContract
     recipe.setPageNumber(recipePage.getPageNumber());
     recipe.setIngredients(new HashSet<>());
 
+    parseIngredients(recipePage, recipe);
+    
+    recipeRepo.save(recipe);
+
+  }
+
+  private void parseIngredients(RecipePage recipePage, Recipe recipe)
+  {
     // parse ingredients based on commas
     List<String> ingredientNames = Arrays.asList(recipePage.getIngredients().split(","));
     for (String ingredientName : ingredientNames)
@@ -53,9 +62,6 @@ public class IndexingService implements IndexingContract
       
       recipe.getIngredients().add(ingredient);
     }
-    
-    recipeRepo.save(recipe);
-
   }
 
   @Override
@@ -65,17 +71,36 @@ public class IndexingService implements IndexingContract
 //    List<RecipePage> recipePages = new ArrayList<>();
 //    for(Recipe recipe: recipes){
 //      RecipePage recipePage = new RecipePage();
-//      recipePage.setTitle(recipe.getTitle());
-//      recipePage.setPageNumber(recipe.getPageNumber());
-//      String ingredients = "";
-//      for(Ingredient ingredient : recipe.getIngredients()){
-//        ingredients = ingredients + ingredient.getName() + ", ";
-//      }
-//      recipePage.setIngredients(ingredients);
+//      
 //      recipePages.add(recipePage);
 //    }
     
     return recipes;
+  }
+  
+  @Override
+  public RecipePage editViewRecipeById(Long recipeId)
+  {
+    Recipe recipe = recipeRepo.findOne(recipeId);
+    RecipePage recipePage = new RecipePage();
+    
+    recipePage.setTitle(recipe.getTitle());
+    recipePage.setPageNumber(recipe.getPageNumber());
+    
+    String ingredients = "";
+    Iterator<Ingredient> i = recipe.getIngredients().iterator();
+    while(i.hasNext())
+    {
+      Ingredient ingredient = i.next();
+      if(i.hasNext()){
+        ingredients += ingredient.getName() + ", ";
+      }else{
+        ingredients += ingredient.getName();
+      }
+    }
+    recipePage.setIngredients(ingredients);
+    
+    return recipePage;
   }
 
   @Override
@@ -131,10 +156,25 @@ public class IndexingService implements IndexingContract
   @Override
   public List<Recipe> searchRecipes(String searchTerm)
   {
-    List<Recipe> recipeResults = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContains(searchTerm, searchTerm);
+    List<Recipe> recipeResults = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(searchTerm, searchTerm);
     
     return recipeResults;
   }
+
+  public void updateRecipe(Long recipeId, RecipePage recipePage)
+  {
+    Recipe recipe = recipeRepo.findOne(recipeId);
+    
+    recipe.setTitle(recipePage.getTitle());
+    recipe.setPageNumber(recipePage.getPageNumber());
+    recipe.getIngredients().clear();
+    parseIngredients(recipePage, recipe);
+    
+    recipeRepo.save(recipe);
+    
+  }
+
+
   
   
 

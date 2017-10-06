@@ -33,7 +33,7 @@ public class RecipeRepositoryIntegrationTest
   {
     Recipe recipe = new Recipe();
     recipe.setTitle(RECIPE_TITLE);
-    recipe.setPageNumber(1);
+    recipe.setPageNumber(RECIPE_PAGE_NUMBER);
     Ingredient ingredient = new Ingredient();
     ingredient.setName(INGREDIENT_NAME);
     Set<Recipe> recipes = new HashSet<>();
@@ -60,16 +60,16 @@ public class RecipeRepositoryIntegrationTest
   public void testSearch()
   {
 
-    List<Recipe> recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContains(RECIPE_TITLE, RECIPE_TITLE);
+    List<Recipe> recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(RECIPE_TITLE, RECIPE_TITLE);
     assertThat(recipes.size(), equalTo(1));
     
-    recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContains(INGREDIENT_NAME, INGREDIENT_NAME);
+    recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(INGREDIENT_NAME, INGREDIENT_NAME);
     assertThat(recipes.size(), equalTo(1));
     
-    recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContains(INGREDIENT_NAME.substring(3, 6), INGREDIENT_NAME.substring(3, 6));
+    recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(INGREDIENT_NAME.substring(3, 6), INGREDIENT_NAME.substring(3, 6));
     assertThat(recipes.size(), equalTo(1));
     
-    recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContains(RECIPE_TITLE.substring(2,  7), RECIPE_TITLE.substring(2,  7));
+    recipes = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(RECIPE_TITLE.substring(2,  7), RECIPE_TITLE.substring(2,  7));
     assertThat(recipes.size(), equalTo(1));
   }
 

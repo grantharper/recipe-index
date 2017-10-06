@@ -1,11 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head">
-</head>
-<body>
-  <nav th:replace="fragments/navbar :: navbar"></nav>
-  <div class="container">
 
-  <h1>Search Recipes</h1>
+<body>
+<div th:fragment="search">
+
   <form th:action="@{/recipes/search}" method="post">
   <div class="form-group">
   <input type="text" class="form-control" th:field="${searchRecipe.searchTerm}" />
@@ -31,6 +28,6 @@
   </tbody>
   
   </table>
-  </div>
+ </div>
 </body>
 </html>

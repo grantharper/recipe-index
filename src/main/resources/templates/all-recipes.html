@@ -16,8 +16,8 @@
     <td><a th:href="@{/recipes/} + ${recipe.id}" th:text="${recipe.title}"></a></td>
     <td th:text="${recipe.pageNumber}"></td>
     <td><span th:each="ingredient, status : ${recipe.ingredients}">
-    <a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${status.last ? ingredient.name : ingredient.name + ', '}">
-    </a></span></td>
+    <a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${ingredient.name}">
+    </a><span th:if="not ${status.last}">, </span></span></td>
   </tr>
   </tbody>
   

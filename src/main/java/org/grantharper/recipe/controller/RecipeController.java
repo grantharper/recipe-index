@@ -24,6 +24,13 @@ public class RecipeController
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String getIndex(Model model)
   {
+    model.addAttribute("searchRecipe", new RecipeSearch());
+    return "index";
+  }
+  
+  @RequestMapping(value = "/recipes/search", method = RequestMethod.POST)
+  public String searchRecipes(Model model, @ModelAttribute("searchRecipe") RecipeSearch recipeSearch){
+    model.addAttribute("recipeResults", indexingService.searchRecipes(recipeSearch.getSearchTerm()));
     return "index";
   }
 
@@ -31,10 +38,10 @@ public class RecipeController
   public String getRecipeAdd(Model model)
   {
     model.addAttribute("recipe", new RecipePage());
-    return "add-recipe";
+    return "recipe-form";
   }
 
-  @RequestMapping(value = "/", method = RequestMethod.POST)
+  @RequestMapping(value = "/recipes/add", method = RequestMethod.POST)
   public String postRecipe(Model model, @ModelAttribute("recipe") RecipePage recipePage)
   {
     indexingService.addRecipe(recipePage);
@@ -61,6 +68,18 @@ public class RecipeController
     indexingService.deleteRecipeById(recipeId);
     return "redirect:/recipes";
   }
+  
+  @RequestMapping(value = "/recipes/{recipeId}/edit", method = RequestMethod.GET)
+  public String editViewByRecipeId(Model model, @PathVariable("recipeId") Long recipeId){
+    model.addAttribute("recipe", indexingService.editViewRecipeById(recipeId));
+    return "recipe-form";
+  }
+  
+  @RequestMapping(value = "/recipes/{recipeId}/edit", method = RequestMethod.POST)
+  public String editByRecipeId(Model model, @PathVariable("recipeId") Long recipeId, @ModelAttribute("recipe") RecipePage recipePage){
+    indexingService.updateRecipe(recipeId, recipePage);
+    return "redirect:/recipes/" + recipeId;
+  }
 
   @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
   public String viewAllIngredients(Model model)
@@ -83,15 +102,5 @@ public class RecipeController
     return "redirect:/ingredients";
   }
   
-  @RequestMapping(value = "/recipes/search", method = RequestMethod.GET)
-  public String getSearchRecipes(Model model){
-    model.addAttribute("searchRecipe", new RecipeSearch());
-    return "search-recipes";
-  }
-  
-  @RequestMapping(value = "/recipes/search", method = RequestMethod.POST)
-  public String searchRecipes(Model model, @ModelAttribute("searchRecipe") RecipeSearch recipeSearch){
-    model.addAttribute("recipeResults", indexingService.searchRecipes(recipeSearch.getSearchTerm()));
-    return "search-recipes";
-  }
+
 }

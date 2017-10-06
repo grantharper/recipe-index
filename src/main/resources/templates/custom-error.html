@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+</head>
+<body>
+  <nav th:replace="fragments/navbar :: navbar"></nav>
+  <div class="container">
+
+  <h3>Error</h3>
+  <p th:text="${error}"></p>
+  <a th:href="@{/}">Return to Home</a>
+  </div>
+  
+</body>
+</html>
