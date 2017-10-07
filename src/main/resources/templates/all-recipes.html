@@ -5,23 +5,26 @@
   <nav th:replace="fragments/navbar :: navbar"></nav>
   <div class="container">
 
-  <h1>All Recipes</h1>
-  <table class="table">
-  <thead>
-  <tr><th>Title</th><th>Page</th><th>Ingredients</th></tr>
-    
-  </thead>
-  <tbody>
-  <tr th:each="recipe : ${recipes}">
-    <td><a th:href="@{/recipes/} + ${recipe.id}" th:text="${recipe.title}"></a></td>
-    <td th:text="${recipe.pageNumber}"></td>
-    <td><span th:each="ingredient, status : ${recipe.ingredients}">
-    <a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${ingredient.name}">
-    </a><span th:if="not ${status.last}">, </span></span></td>
-  </tr>
-  </tbody>
-  
-  </table>
+    <h1>All Recipes</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Page</th>
+          <th>Ingredients</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr th:each="recipe : ${recipes}">
+          <td><a th:href="@{/recipes/} + ${recipe.id}" th:text="${recipe.title}"></a></td>
+          <td th:text="${recipe.pageNumber}"></td>
+          <td><span th:each="ingredient, status : ${recipe.ingredients}"> <a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${ingredient.name}"> </a><span
+              th:if="not ${status.last}">, </span></span></td>
+        </tr>
+      </tbody>
+
+    </table>
   </div>
 </body>
 </html>
