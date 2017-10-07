@@ -30,7 +30,7 @@ public class IndexingService implements IndexingContract
     Recipe recipe = new Recipe();
 
     recipe.setTitle(recipePage.getTitle());
-    recipe.setPageNumber(recipePage.getPageNumber());
+    recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
     recipe.setIngredients(new HashSet<>());
 
     parseIngredients(recipePage, recipe);
@@ -79,7 +79,7 @@ public class IndexingService implements IndexingContract
     RecipePage recipePage = new RecipePage();
     
     recipePage.setTitle(recipe.getTitle());
-    recipePage.setPageNumber(recipe.getPageNumber());
+    recipePage.setPageNumber(recipe.getPageNumber().toString());
     
     String ingredients = "";
     Iterator<Ingredient> i = recipe.getIngredients().iterator();
@@ -160,7 +160,7 @@ public class IndexingService implements IndexingContract
     Recipe recipe = recipeRepo.findOne(recipeId);
     
     recipe.setTitle(recipePage.getTitle());
-    recipe.setPageNumber(recipePage.getPageNumber());
+    recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
     recipe.getIngredients().clear();
     parseIngredients(recipePage, recipe);
     

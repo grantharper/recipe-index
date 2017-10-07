@@ -1,13 +1,17 @@
 package org.grantharper.recipe.controller;
 
+import javax.validation.Valid;
+
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.domain.RecipeSearch;
 import org.grantharper.recipe.service.IndexingService;
+import org.grantharper.recipe.validator.RecipeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,9 @@ public class RecipeController
 
   @Autowired
   IndexingService indexingService;
+  
+  @Autowired
+  RecipeValidator recipeValidator;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String getIndex(Model model)
@@ -42,8 +49,14 @@ public class RecipeController
   }
 
   @RequestMapping(value = "/recipes/add", method = RequestMethod.POST)
-  public String postRecipe(Model model, @ModelAttribute("recipe") RecipePage recipePage)
+  public String postRecipe(Model model, @Valid @ModelAttribute("recipe") RecipePage recipePage, BindingResult bindingResult)
   {
+    recipeValidator.validate(recipePage, bindingResult);
+    
+    if(bindingResult.hasErrors()){
+      return "recipe-form";
+    }
+    
     indexingService.addRecipe(recipePage);
     return "redirect:/recipes";
   }
@@ -76,7 +89,14 @@ public class RecipeController
   }
   
   @RequestMapping(value = "/recipes/{recipeId}/edit", method = RequestMethod.POST)
-  public String editByRecipeId(Model model, @PathVariable("recipeId") Long recipeId, @ModelAttribute("recipe") RecipePage recipePage){
+  public String editByRecipeId(Model model, @PathVariable("recipeId") Long recipeId, @ModelAttribute("recipe") RecipePage recipePage , BindingResult bindingResult){
+    
+    recipeValidator.validate(recipePage, bindingResult);
+    
+    if(bindingResult.hasErrors()){
+      return "recipe-form";
+    }
+    
     indexingService.updateRecipe(recipeId, recipePage);
     return "redirect:/recipes/" + recipeId;
   }
