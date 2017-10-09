@@ -4,11 +4,17 @@ import javax.validation.Valid;
 
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.domain.RecipeSearch;
+import org.grantharper.recipe.model.Recipe;
 import org.grantharper.recipe.service.IndexingService;
 import org.grantharper.recipe.validator.RecipeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +29,11 @@ public class RecipeController
   private static final Logger log = LoggerFactory.getLogger(RecipeController.class);
 
   @Autowired
-  IndexingService indexingService;
+  private IndexingService indexingService;
   
   @Autowired
-  RecipeValidator recipeValidator;
-
+  private RecipeValidator recipeValidator;
+  
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String getIndex(Model model)
   {
@@ -62,9 +68,14 @@ public class RecipeController
   }
 
   @RequestMapping(value = "/recipes", method = RequestMethod.GET)
-  public String viewAll(Model model)
+  public String viewAll(Model model, @PageableDefault(size=20, sort={"pageNumber"}, direction=Direction.ASC) Pageable pageRequest)
   {
-    model.addAttribute("recipes", indexingService.viewRecipes());
+    
+    Page<Recipe> recipePage = indexingService.viewPagedRecipes(pageRequest);
+    PageWrapper<Recipe> page = new PageWrapper<>(recipePage, "/recipes");
+    model.addAttribute("recipes", page.getContent());
+    model.addAttribute("page", page);
+    
     return "all-recipes";
   }
 

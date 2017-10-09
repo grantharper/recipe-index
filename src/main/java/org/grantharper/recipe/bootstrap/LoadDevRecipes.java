@@ -29,11 +29,11 @@ public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent
   }
 
   private static final String RECIPE_1_TITLE = "asparagus and shallot fun";
-  private static final String RECIPE_1_PAGE_NUMBER = "1";
+  private static final String RECIPE_1_PAGE_NUMBER = "72";
   private static final String RECIPE_2_TITLE = "roasted cauliflower";
   private static final String RECIPE_2_PAGE_NUMBER = "50";
   private static final String RECIPE_3_TITLE = "beet endive salad";
-  private static final String RECIPE_3_PAGE_NUMBER = "72";
+  private static final String RECIPE_3_PAGE_NUMBER = "1";
 
   private static final String INGREDIENT_1 = "asparagus";
   private static final String INGREDIENT_2 = "pepper";

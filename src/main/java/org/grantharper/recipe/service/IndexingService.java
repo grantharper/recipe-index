@@ -12,6 +12,8 @@ import org.grantharper.recipe.model.Recipe;
 import org.grantharper.recipe.repository.IngredientRepository;
 import org.grantharper.recipe.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -166,6 +168,14 @@ public class IndexingService implements IndexingContract
     
     recipeRepo.save(recipe);
     
+  }
+
+  @Override
+  public Page<Recipe> viewPagedRecipes(Pageable pageable)
+  {
+    Page<Recipe> pagedRecipes = recipeRepo.findAll(pageable);
+    
+    return pagedRecipes;
   }
   
 
