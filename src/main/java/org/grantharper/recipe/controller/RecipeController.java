@@ -68,7 +68,7 @@ public class RecipeController
   }
 
   @RequestMapping(value = "/recipes", method = RequestMethod.GET)
-  public String viewAll(Model model, @PageableDefault(size=20, sort={"pageNumber"}, direction=Direction.ASC) Pageable pageRequest)
+  public String viewAll(Model model, @PageableDefault(size=2, sort={"pageNumber"}, direction=Direction.ASC) Pageable pageRequest)
   {
     
     Page<Recipe> recipePage = indexingService.viewPagedRecipes(pageRequest);
