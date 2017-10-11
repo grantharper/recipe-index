@@ -1,12 +1,9 @@
-p.account-identification {
-  color: red;
-}
-
 p.error {
   color: red;
 }
-/* table, th, td {
-  border: 1px solid black;
+
+.removebutton{
+	margin: 5px;
 }
- */
+
 
