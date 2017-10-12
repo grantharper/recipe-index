@@ -5,6 +5,8 @@ import java.util.List;
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IndexingContract
 {
@@ -12,6 +14,8 @@ public interface IndexingContract
   public void addRecipe(RecipePage recipePage);
   
   public List<Recipe> viewRecipes();
+  
+  public Page<Recipe> viewPagedRecipes(Pageable pageable);
   
   public List<Ingredient> viewIngredients();
   

@@ -1,8 +1,5 @@
 package org.grantharper.recipe.domain;
 
-import java.util.List;
-
-import org.grantharper.recipe.model.Ingredient;
 import org.springframework.util.StringUtils;
 
 public class RecipePage
@@ -10,7 +7,7 @@ public class RecipePage
 
   private String title;
 
-  private Integer pageNumber;
+  private String pageNumber;
 
   private String ingredients;
 
@@ -21,18 +18,20 @@ public class RecipePage
 
   public void setTitle(String title)
   {
-    if (StringUtils.isEmpty(title))
-      throw new IllegalArgumentException("cannot have blank title");
+    /*if (StringUtils.isEmpty(title))
+      throw new IllegalArgumentException("cannot have blank title");*/
     
     this.title = title.toLowerCase();
   }
 
-  public Integer getPageNumber()
+  
+
+  public String getPageNumber()
   {
     return pageNumber;
   }
 
-  public void setPageNumber(Integer pageNumber)
+  public void setPageNumber(String pageNumber)
   {
     this.pageNumber = pageNumber;
   }
@@ -44,8 +43,8 @@ public class RecipePage
 
   public void setIngredients(String ingredients)
   {
-    if (StringUtils.isEmpty(ingredients))
-      throw new IllegalArgumentException("cannot have blank ingredients");
+    /*if (StringUtils.isEmpty(ingredients))
+      throw new IllegalArgumentException("cannot have blank ingredients");*/
 
     this.ingredients = ingredients.toLowerCase();
 

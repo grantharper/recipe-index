@@ -5,25 +5,46 @@
   <nav th:replace="fragments/navbar :: navbar"></nav>
   <div class="container">
 
-	<h1>Add a Recipe</h1>
-	<form action="" method="post">
-	<div class="form-group">
-	<label>Title:</label>
-	<input type="text" class="form-control" th:field="${recipe.title}" />
+    <h1>Add a Recipe</h1>
+    <form id="recipe-form" action="" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control" th:field="${recipe.title}" placeholder="Recipe Title" />
+        <p class="error" th:if="${#fields.hasErrors('recipe.title')}" th:errors="${recipe.title}"></p>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" th:field="${recipe.pageNumber}" placeholder="Page Number" />
+        <p class="error" th:if="${#fields.hasErrors('recipe.pageNumber')}" th:errors="${recipe.pageNumber}"></p>
+      </div>
+      <!-- <div class="form-group">
+        <label>Ingredients (separated by commas):</label> <br />
+        <textarea rows="5" cols="100" class="form-control" th:field="${recipe.ingredients}"></textarea>
+        <p class="error" th:if="${#fields.hasErrors('recipe.ingredients')}" th:errors="${recipe.ingredients}"></p>
+      </div> -->
+      <!-- Test -->
+      <script th:src="@{/js/custom.js}"></script>
+      <input id="ingredient-list" type="hidden" th:field="${recipe.ingredients}" />
+      <div class="form-row form-group">
+        <div class="col-auto">
+          <input id="ingredient-input" type="text" class="form-control" placeholder="Ingredient" />
+          <div id="suggestion-box"></div>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-info" id="ingredient-selection" type="button">Add Ingredient</button>
+        </div>
+      </div>
+      <div class="card form-group" style="width: 30rem;">
+        <div class="card-body">
+          <h4 class="card-title">Ingredients</h4>
+          <p class="card-text">Ingredients will be listed here as they are added. To remove an ingredient, simply click on it</p>
+          <div id="picker-section"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button id="recipe-form-submit" class="btn btn-primary" type="button">Submit</button>
+      </div>
+    </form>
+
   </div>
-  <div class="form-group">
-	<label>Page Number:</label>
-	<input type="text" class="form-control" th:field="${recipe.pageNumber}" />
-	</div>
-	<div class="form-group">
-	<label>Ingredients (separated by commas):</label>
-	<br/>
-	<textarea rows="5" cols="100" class="form-control" th:field="${recipe.ingredients}"></textarea>
-	</div>
-  <div class="form-group">
-	<button class="btn btn-primary" type="submit">Submit</button>
-	</div>
-	</form>
-	</div>
+
 </body>
 </html>

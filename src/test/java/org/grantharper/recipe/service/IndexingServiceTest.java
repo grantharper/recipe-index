@@ -36,7 +36,8 @@ public class IndexingServiceTest
   private static final String INGREDIENT_3 = "shallot";
   private static final String INGREDIENT_LIST = INGREDIENT_1 + ", " + INGREDIENT_2 + ", " + INGREDIENT_3;
   private static final String RECIPE_TITLE = "asparagus and shallot fun";
-  private static final Integer RECIPE_PAGE_NUMBER = 1;
+  private static final String RECIPE_PAGE_NUMBER_STRING = "1";
+  private static final Integer RECIPE_PAGE_NUMBER_INT = Integer.valueOf(RECIPE_PAGE_NUMBER_STRING);
   private static final Long RECIPE_ID = 1L;
   private static final Ingredient DB_INGREDIENT_1 = new Ingredient();
   private static final Ingredient DB_INGREDIENT_2 = new Ingredient();
@@ -54,7 +55,7 @@ public class IndexingServiceTest
     DB_INGREDIENT_3.setId(3L);
     DB_INGREDIENT_3.setName(INGREDIENT_3);
     DB_RECIPE_1.setTitle(RECIPE_TITLE);
-    DB_RECIPE_1.setPageNumber(RECIPE_PAGE_NUMBER);
+    DB_RECIPE_1.setPageNumber(RECIPE_PAGE_NUMBER_INT);
     DB_INGREDIENTS.add(DB_INGREDIENT_1);
     DB_INGREDIENTS.add(DB_INGREDIENT_2);
     DB_INGREDIENTS.add(DB_INGREDIENT_3);
@@ -68,7 +69,7 @@ public class IndexingServiceTest
     recipePage.setIngredients(INGREDIENT_LIST);
     Recipe recipe = new Recipe();
     recipe.setTitle(RECIPE_TITLE);
-    recipe.setPageNumber(RECIPE_PAGE_NUMBER);
+    recipe.setPageNumber(RECIPE_PAGE_NUMBER_INT);
     when(ingredientRepo.findByName(INGREDIENT_1)).thenReturn(DB_INGREDIENT_1);
     indexingService.parseIngredients(recipePage, recipe);
     
@@ -83,7 +84,7 @@ public class IndexingServiceTest
     RecipePage recipePage = indexingService.editViewRecipeById(RECIPE_ID);
     
     assertThat(recipePage.getTitle(), equalTo(RECIPE_TITLE));
-    assertThat(recipePage.getPageNumber(), equalTo(RECIPE_PAGE_NUMBER));
+    assertThat(recipePage.getPageNumber(), equalTo(RECIPE_PAGE_NUMBER_STRING));
     assertThat(recipePage.getIngredients(), equalTo(INGREDIENT_LIST));
     
   }

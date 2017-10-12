@@ -4,24 +4,22 @@
 <body>
   <nav th:replace="fragments/navbar :: navbar"></nav>
   <div class="container">
-  <h3 th:text="${ingredient.name}"></h3>
-  <div >
-    <ul>
-    <li th:each="recipe : ${ingredient.recipes}">
-    <a th:href="@{/recipes/} + ${recipe.id}" th:text="${recipe.title} + ' (' + ${recipe.pageNumber} + ')'"></a>
-    </li>
-    </ul>
+    <h3 th:text="${ingredient.name}"></h3>
+    <div>
+      <ul>
+        <li th:each="recipe : ${ingredient.recipes}"><a th:href="@{/recipes/} + ${recipe.id}" th:text="${recipe.title} + ' (' + ${recipe.pageNumber} + ')'"></a></li>
+      </ul>
+    </div>
+    <div th:if="${#lists.isEmpty(ingredient.recipes)}">
+      <form th:action="@{/ingredients/} + ${ingredient.id} + '/delete'" method="post">
+        <button type="submit" class="btn btn-danger">Delete Ingredient</button>
+      </form>
+    </div>
   </div>
-  <div th:if="${#lists.isEmpty(ingredient.recipes)}">
-  <form th:action="@{/ingredients/} + ${ingredient.id} + '/delete'" method="post">
-  <button type="submit" class="btn btn-danger">Delete Ingredient</button>
-  </form>
-  </div>
-  </div>
-  
+
   <!-- <a th:href="@{/recipes/add}">Add a Recipe</a>
    <a th:href="@{/recipes}">View All Recipes</a>
    <a th:href="@{/ingredients}">View All Ingredients</a> -->
-  
+
 </body>
 </html>

@@ -6,12 +6,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.grantharper.recipe.domain.IngredientSearchResults;
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
 import org.grantharper.recipe.repository.IngredientRepository;
 import org.grantharper.recipe.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,7 +35,7 @@ public class IndexingService implements IndexingContract
     Recipe recipe = new Recipe();
 
     recipe.setTitle(recipePage.getTitle());
-    recipe.setPageNumber(recipePage.getPageNumber());
+    recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
     recipe.setIngredients(new HashSet<>());
 
     parseIngredients(recipePage, recipe);
@@ -79,7 +84,7 @@ public class IndexingService implements IndexingContract
     RecipePage recipePage = new RecipePage();
     
     recipePage.setTitle(recipe.getTitle());
-    recipePage.setPageNumber(recipe.getPageNumber());
+    recipePage.setPageNumber(recipe.getPageNumber().toString());
     
     String ingredients = "";
     Iterator<Ingredient> i = recipe.getIngredients().iterator();
@@ -160,12 +165,28 @@ public class IndexingService implements IndexingContract
     Recipe recipe = recipeRepo.findOne(recipeId);
     
     recipe.setTitle(recipePage.getTitle());
-    recipe.setPageNumber(recipePage.getPageNumber());
+    recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
     recipe.getIngredients().clear();
     parseIngredients(recipePage, recipe);
     
     recipeRepo.save(recipe);
     
+  }
+
+  @Override
+  public Page<Recipe> viewPagedRecipes(Pageable pageable)
+  {
+    Page<Recipe> pagedRecipes = recipeRepo.findAll(pageable);
+    
+    return pagedRecipes;
+  }
+
+  public ResponseEntity<IngredientSearchResults> searchIngredients(String searchTerm)
+  {
+    IngredientSearchResults searchResults = new IngredientSearchResults(ingredientRepo.findByNameContains(searchTerm));
+    
+    return new ResponseEntity<IngredientSearchResults>(searchResults, HttpStatus.OK);
+
   }
   
 

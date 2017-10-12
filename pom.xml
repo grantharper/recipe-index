@@ -5,7 +5,7 @@
 
 	<groupId>org.grantharper</groupId>
 	<artifactId>recipe-index</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>recipe-index</name>
