@@ -28,7 +28,33 @@ $(document).ready(function () {
 		$('#recipe-form').submit();
 	});
 	
+	$('#ingredient-input').keyup(function(){
+		jQuery.get( "/ingredients/search", { search: $(this).val() }, function(data){
+			console.log(data.searchResults);
+			$('#suggestion-box').show();
+			$('#suggestion-box').children().remove();
+			data.searchResults.forEach(function(ingredient){
+				//$('#suggestion-box').append('<li onClick="selectIngredient(\\"' + ingredient + '\\");">' + ingredient + '</li>');
+				$('#suggestion-box').append('<li class="ingredient-ajax">' + ingredient + '</li>');
+			});
+			//$('#suggestion-box').html(data.searchResults);
+			//$('#ingredient-input').css("background","#FFF");
+		});
+	});
+	
+	$('#suggestion-box').on('click', '.ingredient-ajax', function(){
+		var ingredient = $(this).text();
+		$('#ingredient-input').val(ingredient);
+		$('#suggestion-box').children().remove();
+		$('#suggestion-box').hide();
+	});
+	
 });
+
+function selectIngredient(){
+	$('#ingredient-input').val(node.val());
+	$('#suggestion-box').hide();
+}
 
 function setEditIngredients(){
 	var ingredientList = $('#ingredient-list').val();

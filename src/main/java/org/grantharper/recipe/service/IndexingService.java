@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.grantharper.recipe.domain.IngredientSearchResults;
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
@@ -14,6 +15,8 @@ import org.grantharper.recipe.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -176,6 +179,14 @@ public class IndexingService implements IndexingContract
     Page<Recipe> pagedRecipes = recipeRepo.findAll(pageable);
     
     return pagedRecipes;
+  }
+
+  public ResponseEntity<IngredientSearchResults> searchIngredients(String searchTerm)
+  {
+    IngredientSearchResults searchResults = new IngredientSearchResults(ingredientRepo.findByNameContains(searchTerm));
+    
+    return new ResponseEntity<IngredientSearchResults>(searchResults, HttpStatus.OK);
+
   }
   
 
