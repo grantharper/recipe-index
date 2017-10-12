@@ -35,12 +35,10 @@ $(document).ready(function () {
 			$('#suggestion-box').children().remove();
 			$('#suggestion-box').append('<ul class="list-group">');
 			data.searchResults.forEach(function(ingredient){
-				//$('#suggestion-box').append('<li onClick="selectIngredient(\\"' + ingredient + '\\");">' + ingredient + '</li>');
 				
 				$('#suggestion-box').append('<li class="list-group-item ingredient-ajax">' + ingredient + '</li>');
 			});
 			$('#suggestion-box').append('</ul>');
-			//$('#suggestion-box').html(data.searchResults);
 			//$('#ingredient-input').css("background","#FFF");
 		});
 	});
@@ -61,6 +59,9 @@ function selectIngredient(){
 
 function setEditIngredients(){
 	var ingredientList = $('#ingredient-list').val();
+	if(ingredientList.trim() == ''){
+		return;
+	}
 	//console.log(ingredientList);
 	var ingredients = ingredientList.split(',');
 	
