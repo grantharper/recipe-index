@@ -7,6 +7,7 @@ import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 public interface IndexingContract
 {
@@ -34,4 +35,6 @@ public interface IndexingContract
   public List<Recipe> searchRecipesByTitle(String recipeTitle);
   
   public List<Recipe> searchRecipes(String ingredientName);
+  
+  public ResponseEntity<List<String>> searchIngredients(String term);
 }

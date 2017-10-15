@@ -24,11 +24,11 @@
       <script th:src="@{/js/custom.js}"></script>
       <input id="ingredient-list" type="hidden" th:field="${recipe.ingredients}" />
       <div class="form-row form-group">
-        <div class="col-auto">
+        <div class="col-auto form-group">
           <input id="ingredient-input" type="text" class="form-control" placeholder="Ingredient" />
-          <div id="suggestion-box"></div>
+          <!-- <div id="suggestion-box"></div> -->
         </div>
-        <div class="col-auto">
+        <div class="col-auto form-group">
           <button class="btn btn-info" id="ingredient-selection" type="button">Add Ingredient</button>
         </div>
       </div>
