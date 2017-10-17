@@ -27,6 +27,12 @@ public class IngredientSearchResults
     this.searchResults = searchResults;
   }
 
+  @Override
+  public String toString()
+  {
+    return "IngredientSearchResults [searchResults=" + searchResults + "]";
+  }
+
   
   
   

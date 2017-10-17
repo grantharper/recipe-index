@@ -1,12 +1,13 @@
 package org.grantharper.recipe.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Stream;
 
-import org.grantharper.recipe.domain.IngredientSearchResults;
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
@@ -44,7 +45,7 @@ public class IndexingService implements IndexingContract
 
   }
 
-  public void parseIngredients(RecipePage recipePage, Recipe recipe)
+  void parseIngredients(RecipePage recipePage, Recipe recipe)
   {
     // parse ingredients based on commas
     List<String> ingredientNames = Arrays.asList(recipePage.getIngredients().split(","));
@@ -160,6 +161,7 @@ public class IndexingService implements IndexingContract
     return recipeResults;
   }
 
+  @Override
   public void updateRecipe(Long recipeId, RecipePage recipePage)
   {
     Recipe recipe = recipeRepo.findOne(recipeId);
@@ -181,11 +183,18 @@ public class IndexingService implements IndexingContract
     return pagedRecipes;
   }
 
-  public ResponseEntity<IngredientSearchResults> searchIngredients(String searchTerm)
+  @Override
+  public ResponseEntity<List<String>> searchIngredients(String term)
   {
-    IngredientSearchResults searchResults = new IngredientSearchResults(ingredientRepo.findByNameContains(searchTerm));
+    List<Ingredient> ingredients = ingredientRepo.findTop5ByNameContainsOrderByNameAsc(term);
     
-    return new ResponseEntity<IngredientSearchResults>(searchResults, HttpStatus.OK);
+    List<String> ingredientNames = new ArrayList<>();
+    Stream<Ingredient> fromList = ingredients.stream();
+    fromList.forEach((a) -> {
+      ingredientNames.add(a.getName());
+    });
+    
+    return new ResponseEntity<List<String>>(ingredientNames, HttpStatus.OK);
 
   }
   

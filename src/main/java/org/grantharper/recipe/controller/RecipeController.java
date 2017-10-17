@@ -1,8 +1,9 @@
 package org.grantharper.recipe.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
-import org.grantharper.recipe.domain.IngredientSearchResults;
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.domain.RecipeSearch;
 import org.grantharper.recipe.model.Recipe;
@@ -137,9 +138,11 @@ public class RecipeController
   }
   
   @RequestMapping(value = "/ingredients/search", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<IngredientSearchResults> getIngredientSearch(@RequestParam("search") String searchTerm){
-    
-    return indexingService.searchIngredients(searchTerm);
+  public @ResponseBody ResponseEntity<List<String>> getIngredientSearch(@RequestParam("term") String searchTerm){
+    log.debug("SearchTerm=" + searchTerm);
+    ResponseEntity<List<String>> result = indexingService.searchIngredients(searchTerm);
+    log.debug("SearchResponse=" + result);
+    return result;
   }
   
 
