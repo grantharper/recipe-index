@@ -35,6 +35,10 @@ p.error {
 	*border-bottom-width: 2px;
 }
 
+/* .ui-autocomplete-loading {
+    background: white url("/img/loader.gif") right center no-repeat;
+} */
+
 div.ui-helper-hidden-accessible {
 	display: none;
 }

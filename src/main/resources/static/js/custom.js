@@ -9,7 +9,8 @@ $(document).ready(function() {
       'ui-autocomplete' : 'list-group',
       'ui-autocomplete-loading' : 'list-group-item'
     },
-    source : '/ingredients/search'
+    source : '/ingredients/search',
+    minLength: 2
   });
 
   // if enter is pressed on the ingredient input, click add ingredient to add it
