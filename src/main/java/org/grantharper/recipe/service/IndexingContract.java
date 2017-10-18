@@ -39,4 +39,5 @@ public interface IndexingContract
   public ResponseEntity<List<String>> searchIngredients(String term);
   
   public Page<Ingredient> viewPagedIngredients(Pageable pageable);
+
 }
