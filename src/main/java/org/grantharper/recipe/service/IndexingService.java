@@ -40,7 +40,7 @@ public class IndexingService implements IndexingContract
     recipe.setIngredients(new HashSet<>());
 
     parseIngredients(recipePage, recipe);
-    
+
     recipeRepo.save(recipe);
 
   }
@@ -54,18 +54,20 @@ public class IndexingService implements IndexingContract
       ingredientName = ingredientName.trim().toLowerCase();
       // search for existing ingredients
       Ingredient ingredient = ingredientRepo.findByName(ingredientName);
-      
-      if(ingredient == null){
+
+      if (ingredient == null)
+      {
         ingredient = new Ingredient();
         ingredient.setName(ingredientName);
         Set<Recipe> recipes = new HashSet<>();
         recipes.add(recipe);
         ingredient.setRecipes(recipes);
-        
-      }else{
+
+      } else
+      {
         ingredient.getRecipes().add(recipe);
       }
-      
+
       recipe.getIngredients().add(ingredient);
     }
   }
@@ -74,32 +76,34 @@ public class IndexingService implements IndexingContract
   public List<Recipe> viewRecipes()
   {
     List<Recipe> recipes = recipeRepo.findAllOrderByPageNumber();
-    
+
     return recipes;
   }
-  
+
   @Override
   public RecipePage editViewRecipeById(Long recipeId)
   {
     Recipe recipe = recipeRepo.findOne(recipeId);
     RecipePage recipePage = new RecipePage();
-    
+
     recipePage.setTitle(recipe.getTitle());
     recipePage.setPageNumber(recipe.getPageNumber().toString());
-    
+
     String ingredients = "";
     Iterator<Ingredient> i = recipe.getIngredients().iterator();
-    while(i.hasNext())
+    while (i.hasNext())
     {
       Ingredient ingredient = i.next();
-      if(i.hasNext()){
+      if (i.hasNext())
+      {
         ingredients += ingredient.getName() + "; ";
-      }else{
+      } else
+      {
         ingredients += ingredient.getName();
       }
     }
     recipePage.setIngredients(ingredients);
-    
+
     return recipePage;
   }
 
@@ -123,27 +127,28 @@ public class IndexingService implements IndexingContract
   public void deleteRecipeById(Long recipeId)
   {
     Recipe recipe = recipeRepo.findOne(recipeId);
-    
+
     recipe.getIngredients().clear();
-    
+
     recipeRepo.delete(recipe);
-    
+
   }
 
   @Override
   public void deleteIngredientById(Long ingredientId)
   {
     Ingredient ingredient = ingredientRepo.findOne(ingredientId);
-    
-    //check if the ingredient is still in a recipe
-    if(!ingredient.getRecipes().isEmpty()){
+
+    // check if the ingredient is still in a recipe
+    if (!ingredient.getRecipes().isEmpty())
+    {
       return;
     }
-    
+
     ingredient.getRecipes().clear();
-    
+
     ingredientRepo.delete(ingredient);
-    
+
   }
 
   @Override
@@ -156,8 +161,9 @@ public class IndexingService implements IndexingContract
   @Override
   public List<Recipe> searchRecipes(String searchTerm)
   {
-    List<Recipe> recipeResults = recipeRepo.findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(searchTerm, searchTerm);
-    
+    List<Recipe> recipeResults = recipeRepo
+        .findDistinctRecipeByIngredientsNameContainsOrTitleContainsOrderByPageNumber(searchTerm, searchTerm);
+
     return recipeResults;
   }
 
@@ -165,21 +171,21 @@ public class IndexingService implements IndexingContract
   public void updateRecipe(Long recipeId, RecipePage recipePage)
   {
     Recipe recipe = recipeRepo.findOne(recipeId);
-    
+
     recipe.setTitle(recipePage.getTitle());
     recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
     recipe.getIngredients().clear();
     parseIngredients(recipePage, recipe);
-    
+
     recipeRepo.save(recipe);
-    
+
   }
 
   @Override
   public Page<Recipe> viewPagedRecipes(Pageable pageable)
   {
     Page<Recipe> pagedRecipes = recipeRepo.findAll(pageable);
-    
+
     return pagedRecipes;
   }
 
@@ -187,16 +193,24 @@ public class IndexingService implements IndexingContract
   public ResponseEntity<List<String>> searchIngredients(String term)
   {
     List<Ingredient> ingredients = ingredientRepo.findTop5ByNameContainsOrderByNameAsc(term);
-    
+
     List<String> ingredientNames = new ArrayList<>();
     Stream<Ingredient> fromList = ingredients.stream();
-    fromList.forEach((a) -> {
+    fromList.forEach((a) ->
+    {
       ingredientNames.add(a.getName());
     });
-    
+
     return new ResponseEntity<List<String>>(ingredientNames, HttpStatus.OK);
 
   }
-  
+
+  @Override
+  public Page<Ingredient> viewPagedIngredients(Pageable pageable)
+  {
+    Page<Ingredient> pagedIngredients = ingredientRepo.findAll(pageable);
+
+    return pagedIngredients;
+  }
 
 }

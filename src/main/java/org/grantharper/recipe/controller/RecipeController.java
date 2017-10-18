@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.domain.RecipeSearch;
+import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
 import org.grantharper.recipe.service.IndexingService;
 import org.grantharper.recipe.validator.RecipeValidator;
@@ -117,9 +118,13 @@ public class RecipeController
   }
 
   @RequestMapping(value = "/ingredients", method = RequestMethod.GET)
-  public String viewAllIngredients(Model model)
+  public String viewAllIngredients(Model model, @PageableDefault(size=20, sort={"name"}, direction=Direction.ASC) Pageable pageRequest)
   {
-    model.addAttribute("ingredients", indexingService.viewIngredients());
+    Page<Ingredient> ingredientPage = indexingService.viewPagedIngredients(pageRequest);
+    PageWrapper<Ingredient> page = new PageWrapper<>(ingredientPage, "/ingredients");
+    model.addAttribute("ingredients", page.getContent());
+    model.addAttribute("page", page);
+
     return "all-ingredients";
   }
 

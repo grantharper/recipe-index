@@ -37,4 +37,6 @@ public interface IndexingContract
   public List<Recipe> searchRecipes(String ingredientName);
   
   public ResponseEntity<List<String>> searchIngredients(String term);
+  
+  public Page<Ingredient> viewPagedIngredients(Pageable pageable);
 }
