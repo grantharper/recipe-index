@@ -46,9 +46,9 @@ public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent
   private static final String INGREDIENT_9 = "black olive";
   private static final String INGREDIENT_10 = "orange";
 
-  private static final String INGREDIENT_LIST_1 = INGREDIENT_1 + ", " + INGREDIENT_2 + ", " + INGREDIENT_3;
-  private static final String INGREDIENT_LIST_2 = INGREDIENT_4 + ", " + INGREDIENT_5 + ", " + INGREDIENT_6;
-  private static final String INGREDIENT_LIST_3 = INGREDIENT_7 + ", " + INGREDIENT_8 + ", " + INGREDIENT_9 + ", "
+  private static final String INGREDIENT_LIST_1 = INGREDIENT_1 + "; " + INGREDIENT_2 + "; " + INGREDIENT_3;
+  private static final String INGREDIENT_LIST_2 = INGREDIENT_4 + "; " + INGREDIENT_5 + "; " + INGREDIENT_6;
+  private static final String INGREDIENT_LIST_3 = INGREDIENT_7 + "; " + INGREDIENT_8 + "; " + INGREDIENT_9 + "; "
       + INGREDIENT_10;
 
   public void loadRecipes()

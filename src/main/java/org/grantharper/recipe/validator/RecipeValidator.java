@@ -12,11 +12,23 @@ import org.springframework.validation.Validator;
 public class RecipeValidator implements Validator
 {
 
-  private Pattern titlePattern = Pattern.compile("^[A-Za-z0-9-\\'\\s]*$");
+  private Pattern titlePattern = Pattern.compile("^[A-Za-z0-9-\\'\\s\\,\\(\\)]*$");
 
   private Pattern pageNumberPattern = Pattern.compile("^[0-9]*$");
 
-  private Pattern ingredientsPattern = Pattern.compile("^[A-Za-z0-9-\\'\\s\\,]*$");
+  private Pattern ingredientsPattern = Pattern.compile("^[A-Za-z0-9-\\'\\s\\,\\;\\(\\)]*$");
+  
+  boolean isValidTitle(String input){
+    return titlePattern.matcher(input).matches();
+  }
+  
+  boolean isValidPageNumber(String input){
+    return pageNumberPattern.matcher(input).matches();
+  }
+  
+  boolean isValidIngredients(String input){
+    return ingredientsPattern.matcher(input).matches();
+  }
 
   @Override
   public boolean supports(Class<?> clazz)
@@ -33,7 +45,7 @@ public class RecipeValidator implements Validator
 
     RecipePage rp = (RecipePage) o;
 
-    if (!titlePattern.matcher(rp.getTitle()).matches())
+    if (!isValidTitle(rp.getTitle()))
     {
       e.rejectValue("title", "title.invalid");
     }
