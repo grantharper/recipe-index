@@ -48,7 +48,7 @@ public class IndexingService implements IndexingContract
   void parseIngredients(RecipePage recipePage, Recipe recipe)
   {
     // parse ingredients based on commas
-    List<String> ingredientNames = Arrays.asList(recipePage.getIngredients().split(","));
+    List<String> ingredientNames = Arrays.asList(recipePage.getIngredients().split(";"));
     for (String ingredientName : ingredientNames)
     {
       ingredientName = ingredientName.trim().toLowerCase();
@@ -93,7 +93,7 @@ public class IndexingService implements IndexingContract
     {
       Ingredient ingredient = i.next();
       if(i.hasNext()){
-        ingredients += ingredient.getName() + ", ";
+        ingredients += ingredient.getName() + "; ";
       }else{
         ingredients += ingredient.getName();
       }

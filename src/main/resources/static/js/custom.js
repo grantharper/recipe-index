@@ -78,7 +78,7 @@ function setEditIngredients() {
     return;
   }
   // console.log(ingredientList);
-  var ingredients = ingredientList.split(',');
+  var ingredients = ingredientList.split(';');
 
   ingredients.forEach(function(ingredient) {
     ingredient = ingredient.trim();
@@ -105,7 +105,7 @@ function setIngredients() {
   var ingredients = '';
   $('#picker-section').children('button').each(function(i) {
     // console.log($(this).text());
-    ingredients += $(this).text() + ', ';
+    ingredients += $(this).text() + '; ';
   });
   ingredients = ingredients.substring(0, ingredients.length - 2);
 
