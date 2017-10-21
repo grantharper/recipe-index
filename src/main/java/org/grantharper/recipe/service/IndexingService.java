@@ -1,12 +1,11 @@
 package org.grantharper.recipe.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.model.Ingredient;
@@ -192,14 +191,9 @@ public class IndexingService implements IndexingContract
   @Override
   public ResponseEntity<List<String>> searchIngredients(String term)
   {
-    List<Ingredient> ingredients = ingredientRepo.findTop5ByNameContainsOrderByNameAsc(term);
 
-    List<String> ingredientNames = new ArrayList<>();
-    Stream<Ingredient> fromList = ingredients.stream();
-    fromList.forEach((a) ->
-    {
-      ingredientNames.add(a.getName());
-    });
+    List<String> ingredientNames = ingredientRepo.findTop5ByNameContainsOrderByNameAsc(term).stream()
+        .map(Ingredient::getName).collect(Collectors.toList());
 
     return new ResponseEntity<List<String>>(ingredientNames, HttpStatus.OK);
 
