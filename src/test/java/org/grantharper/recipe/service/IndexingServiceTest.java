@@ -34,7 +34,7 @@ public class IndexingServiceTest
   private static final String INGREDIENT_1 = "asparagus";
   private static final String INGREDIENT_2 = "pepper";
   private static final String INGREDIENT_3 = "shallot";
-  private static final String INGREDIENT_LIST = INGREDIENT_1 + "; " + INGREDIENT_2 + "; " + INGREDIENT_3;
+  private static final String INGREDIENT_LIST = INGREDIENT_1 + ";" + INGREDIENT_2 + ";" + INGREDIENT_3;
   private static final String RECIPE_TITLE = "asparagus and shallot fun";
   private static final String RECIPE_PAGE_NUMBER_STRING = "1";
   private static final Integer RECIPE_PAGE_NUMBER_INT = Integer.valueOf(RECIPE_PAGE_NUMBER_STRING);
