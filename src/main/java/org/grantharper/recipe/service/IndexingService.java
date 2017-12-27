@@ -47,28 +47,34 @@ public class IndexingService implements IndexingContract
     void parseIngredients(RecipePage recipePage, Recipe recipe)
     {
         // parse ingredients based on commas
-        List<String> ingredientNames = Arrays.asList(recipePage.getIngredients().split(";"));
-        for (String ingredientName : ingredientNames)
-        {
-            ingredientName = ingredientName.trim().toLowerCase();
-            // search for existing ingredients
-            Ingredient ingredient = ingredientRepo.findByName(ingredientName);
+        Arrays.asList(recipePage.getIngredients()
+                .split(";"))
+                .stream()
+                .map(name -> name.trim()
+                        .toLowerCase())
+                .forEach(name -> {
 
-            if (ingredient == null)
-            {
-                ingredient = new Ingredient();
-                ingredient.setName(ingredientName);
-                Set<Recipe> recipes = new HashSet<>();
-                recipes.add(recipe);
-                ingredient.setRecipes(recipes);
+                    // search for existing ingredients
+                    Ingredient ingredient = ingredientRepo.findByName(name);
 
-            } else
-            {
-                ingredient.getRecipes().add(recipe);
-            }
+                    if (ingredient == null)
+                    {
+                        ingredient = new Ingredient();
+                        ingredient.setName(name);
+                        Set<Recipe> recipes = new HashSet<>();
+                        recipes.add(recipe);
+                        ingredient.setRecipes(recipes);
 
-            recipe.getIngredients().add(ingredient);
-        }
+                    } else
+                    {
+                        ingredient.getRecipes()
+                                .add(recipe);
+                    }
+
+                    recipe.getIngredients()
+                            .add(ingredient);
+                });
+
     }
 
     @Override
@@ -86,9 +92,12 @@ public class IndexingService implements IndexingContract
         RecipePage recipePage = new RecipePage();
 
         recipePage.setTitle(recipe.getTitle());
-        recipePage.setPageNumber(recipe.getPageNumber().toString());
-        recipePage.setIngredients(
-                recipe.getIngredients().stream().map(i -> i.getName()).collect(Collectors.joining(";")));
+        recipePage.setPageNumber(recipe.getPageNumber()
+                .toString());
+        recipePage.setIngredients(recipe.getIngredients()
+                .stream()
+                .map(i -> i.getName())
+                .collect(Collectors.joining(";")));
 
         return recipePage;
     }
@@ -114,7 +123,8 @@ public class IndexingService implements IndexingContract
     {
         Recipe recipe = recipeRepo.findOne(recipeId);
 
-        recipe.getIngredients().clear();
+        recipe.getIngredients()
+                .clear();
 
         recipeRepo.delete(recipe);
 
@@ -126,12 +136,14 @@ public class IndexingService implements IndexingContract
         Ingredient ingredient = ingredientRepo.findOne(ingredientId);
 
         // check if the ingredient is still in a recipe
-        if (!ingredient.getRecipes().isEmpty())
+        if (!ingredient.getRecipes()
+                .isEmpty())
         {
             return;
         }
 
-        ingredient.getRecipes().clear();
+        ingredient.getRecipes()
+                .clear();
 
         ingredientRepo.delete(ingredient);
 
@@ -160,7 +172,8 @@ public class IndexingService implements IndexingContract
 
         recipe.setTitle(recipePage.getTitle());
         recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
-        recipe.getIngredients().clear();
+        recipe.getIngredients()
+                .clear();
         parseIngredients(recipePage, recipe);
 
         recipeRepo.save(recipe);
