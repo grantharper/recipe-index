@@ -1,0 +1,38 @@
+{
+  "name": "recipe-index",
+  "version": "0.0.2",
+  "description": "Recipe Indexing service",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:grantharper/recipe-index.git"
+  },
+  "keywords": [
+    "rest",
+    "hateoas",
+    "spring",
+    "data",
+    "react"
+  ],
+  "author": "Grant Harper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grantharper/recipe-index/issues"
+  },
+  "homepage": "https://github.com/grantharper/recipe-index",
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "rest": "^1.3.1",
+    "webpack": "^1.12.2"
+  },
+  "scripts": {
+    "watch": "webpack --watch -d"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0"
+  }
+}
