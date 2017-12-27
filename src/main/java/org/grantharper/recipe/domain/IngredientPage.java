@@ -7,41 +7,40 @@ import org.grantharper.recipe.model.Recipe;
 public class IngredientPage
 {
 
-  private String name;
-  
-  private String recipes;
-  
-  private List<Recipe> recipeList;
+    private String name;
 
-  public String getName()
-  {
-    return name;
-  }
+    private String recipes;
 
-  public void setName(String name)
-  {
-    this.name = name;
-  }
+    private List<Recipe> recipeList;
 
-  public String getRecipes()
-  {
-    return recipes;
-  }
+    public String getName()
+    {
+        return name;
+    }
 
-  public void setRecipes(String recipes)
-  {
-    this.recipes = recipes;
-  }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-  public List<Recipe> getRecipeList()
-  {
-    return recipeList;
-  }
+    public String getRecipes()
+    {
+        return recipes;
+    }
 
-  public void setRecipeList(List<Recipe> recipeList)
-  {
-    this.recipeList = recipeList;
-  }
-  
-  
+    public void setRecipes(String recipes)
+    {
+        this.recipes = recipes;
+    }
+
+    public List<Recipe> getRecipeList()
+    {
+        return recipeList;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList)
+    {
+        this.recipeList = recipeList;
+    }
+
 }

@@ -15,7 +15,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Ingredient implements Comparable<Ingredient> {
+public class Ingredient implements Comparable<Ingredient>
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,12 +35,14 @@ public class Ingredient implements Comparable<Ingredient> {
     private Set<Recipe> recipes = new TreeSet<>();
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Ingredient [id=" + id + ", name=" + name + "]";
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -49,7 +52,8 @@ public class Ingredient implements Comparable<Ingredient> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         if (this == obj)
             return true;
         if (obj == null)
@@ -57,7 +61,8 @@ public class Ingredient implements Comparable<Ingredient> {
         if (getClass() != obj.getClass())
             return false;
         Ingredient other = (Ingredient) obj;
-        if (other.getName().equalsIgnoreCase(this.getName())) {
+        if (other.getName().equalsIgnoreCase(this.getName()))
+        {
             return true;
         }
 
@@ -65,7 +70,8 @@ public class Ingredient implements Comparable<Ingredient> {
     }
 
     @Override
-    public int compareTo(Ingredient other) {
+    public int compareTo(Ingredient other)
+    {
         return this.getName().compareTo(other.getName());
     }
 

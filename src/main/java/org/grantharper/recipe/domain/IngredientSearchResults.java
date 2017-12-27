@@ -7,33 +7,31 @@ import org.grantharper.recipe.model.Ingredient;
 
 public class IngredientSearchResults
 {
-  private List<String> searchResults;
+    private List<String> searchResults;
 
-  public IngredientSearchResults(List<Ingredient> ingredients)
-  {
-    searchResults = new ArrayList<>();
-    for(Ingredient ingredient: ingredients){
-      searchResults.add(ingredient.getName());
+    public IngredientSearchResults(List<Ingredient> ingredients)
+    {
+        searchResults = new ArrayList<>();
+        for (Ingredient ingredient : ingredients)
+        {
+            searchResults.add(ingredient.getName());
+        }
     }
-  }
 
-  public List<String> getSearchResults()
-  {
-    return searchResults;
-  }
+    public List<String> getSearchResults()
+    {
+        return searchResults;
+    }
 
-  public void setSearchResults(List<String> searchResults)
-  {
-    this.searchResults = searchResults;
-  }
+    public void setSearchResults(List<String> searchResults)
+    {
+        this.searchResults = searchResults;
+    }
 
-  @Override
-  public String toString()
-  {
-    return "IngredientSearchResults [searchResults=" + searchResults + "]";
-  }
+    @Override
+    public String toString()
+    {
+        return "IngredientSearchResults [searchResults=" + searchResults + "]";
+    }
 
-  
-  
-  
 }

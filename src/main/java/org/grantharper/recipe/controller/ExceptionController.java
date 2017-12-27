@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController
 {
 
-private static final Logger log = LoggerFactory.getLogger(ExceptionController.class);
-  
-  @ExceptionHandler(value = Exception.class)
-  public String errorPage(Model model, Exception exception){
-    
-    log.error(exception.getMessage(), exception);
-    model.addAttribute("error", exception.getMessage());
-    return "custom-error";
-  }
+    private static final Logger log = LoggerFactory.getLogger(ExceptionController.class);
+
+    @ExceptionHandler(value = Exception.class)
+    public String errorPage(Model model, Exception exception)
+    {
+
+        log.error(exception.getMessage(), exception);
+        model.addAttribute("error", exception.getMessage());
+        return "custom-error";
+    }
 }

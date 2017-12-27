@@ -17,7 +17,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-public class Recipe implements Comparable<Recipe> {
+public class Recipe implements Comparable<Recipe>
+{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,17 +42,20 @@ public class Recipe implements Comparable<Recipe> {
     private Set<Ingredient> ingredients = new TreeSet<>();
 
     @Override
-    public int compareTo(Recipe other) {
+    public int compareTo(Recipe other)
+    {
         return this.getTitle().compareTo(other.getTitle());
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Recipe [id=" + id + ", title=" + title + ", pageNumber=" + pageNumber + "]";
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -61,7 +65,8 @@ public class Recipe implements Comparable<Recipe> {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         if (this == obj)
             return true;
         if (obj == null)
@@ -69,17 +74,20 @@ public class Recipe implements Comparable<Recipe> {
         if (getClass() != obj.getClass())
             return false;
         Recipe other = (Recipe) obj;
-        if (id == null) {
+        if (id == null)
+        {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (pageNumber == null) {
+        if (pageNumber == null)
+        {
             if (other.pageNumber != null)
                 return false;
         } else if (!pageNumber.equals(other.pageNumber))
             return false;
-        if (title == null) {
+        if (title == null)
+        {
             if (other.title != null)
                 return false;
         } else if (!title.equals(other.title))

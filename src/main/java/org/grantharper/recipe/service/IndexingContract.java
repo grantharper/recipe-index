@@ -12,32 +12,32 @@ import org.springframework.http.ResponseEntity;
 public interface IndexingContract
 {
 
-  public void addRecipe(RecipePage recipePage);
-  
-  public List<Recipe> viewRecipes();
-  
-  public Page<Recipe> viewPagedRecipes(Pageable pageable);
-  
-  public List<Ingredient> viewIngredients();
-  
-  public Ingredient viewIngredientById(Long id);
-  
-  public Recipe viewRecipeById(Long recipeId);
-  
-  public RecipePage editViewRecipeById(Long recipeId);
-  
-  public void updateRecipe(Long recipeId, RecipePage recipePage);
-  
-  public void deleteRecipeById(Long recipeId);
-  
-  public void deleteIngredientById(Long ingredientId);
-  
-  public List<Recipe> searchRecipesByTitle(String recipeTitle);
-  
-  public List<Recipe> searchRecipes(String ingredientName);
-  
-  public ResponseEntity<List<String>> searchIngredients(String term);
-  
-  public Page<Ingredient> viewPagedIngredients(Pageable pageable);
+    public void addRecipe(RecipePage recipePage);
+
+    public List<Recipe> viewRecipes();
+
+    public Page<Recipe> viewPagedRecipes(Pageable pageable);
+
+    public List<Ingredient> viewIngredients();
+
+    public Ingredient viewIngredientById(Long id);
+
+    public Recipe viewRecipeById(Long recipeId);
+
+    public RecipePage editViewRecipeById(Long recipeId);
+
+    public void updateRecipe(Long recipeId, RecipePage recipePage);
+
+    public void deleteRecipeById(Long recipeId);
+
+    public void deleteIngredientById(Long ingredientId);
+
+    public List<Recipe> searchRecipesByTitle(String recipeTitle);
+
+    public List<Recipe> searchRecipes(String ingredientName);
+
+    public ResponseEntity<List<String>> searchIngredients(String term);
+
+    public Page<Ingredient> viewPagedIngredients(Pageable pageable);
 
 }

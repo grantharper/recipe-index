@@ -11,25 +11,27 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @Configuration
 @EnableSpringDataWebSupport
-public class WebConfiguration {
+public class WebConfiguration
+{
 
-	// This is for the H2 database console if needed
-  @Profile("dev")
-	@Bean
-	ServletRegistrationBean h2servletRegistration() {
-			ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
-			registrationBean.addUrlMappings("/console/*");
-			return registrationBean;
-	}
-	
+    // This is for the H2 database console if needed
+    @Profile("dev")
+    @Bean
+    ServletRegistrationBean h2servletRegistration()
+    {
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
+        registrationBean.addUrlMappings("/console/*");
+        return registrationBean;
+    }
 
-	@Bean(name = "messageSource")
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource reloadMessage = new ReloadableResourceBundleMessageSource();
-		reloadMessage.setBasename("classpath:/messages");
-		reloadMessage.setDefaultEncoding("UTF-8");
-		reloadMessage.setCacheSeconds(0);
-		return reloadMessage;
-	}
+    @Bean(name = "messageSource")
+    public MessageSource messageSource()
+    {
+        ReloadableResourceBundleMessageSource reloadMessage = new ReloadableResourceBundleMessageSource();
+        reloadMessage.setBasename("classpath:/messages");
+        reloadMessage.setDefaultEncoding("UTF-8");
+        reloadMessage.setCacheSeconds(0);
+        return reloadMessage;
+    }
 
 }
