@@ -1,12 +1,9 @@
 'use strict';
 
-// tag::vars[]
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
-// end::vars[]
 
-// tag::app[]
 class App extends React.Component {
 
 	constructor(props) {
@@ -22,25 +19,23 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<recipeList recipes={this.state.recipes}/>
+			<RecipeList recipes={this.state.recipes}/>
 		)
 	}
 }
-// end::app[]
 
-// tag::recipe-list[]
-class recipeList extends React.Component{
+class RecipeList extends React.Component{
 	render() {
 		var recipes = this.props.recipes.map(recipe =>
-			<recipe key={recipe._links.self.href} recipe={recipe}/>
+			<Recipe key={recipe._links.self.href} recipe={recipe}/>
 		);
 		return (
-			<table>
+			<table className="table">
 				<tbody>
 					<tr>
 						<th>Title</th>
 						<th>Page Number</th>
-						<th>Description</th>
+						<th>Ingredients</th>
 					</tr>
 					{recipes}
 				</tbody>
@@ -48,26 +43,66 @@ class recipeList extends React.Component{
 		)
 	}
 }
-// end::recipe-list[]
 
-// tag::recipe[]
-class recipe extends React.Component{
+class Recipe extends React.Component{
+  
+  constructor(props) {
+    super(props);
+    this.state = {ingredients: []};
+  }
+
+  componentDidMount() {
+    //dummy component
+//    var ingredient1 = {
+//        name: 'shallot',
+//        _links: {
+//            self: {
+//              href: 'blahblah'
+//          }
+//        }
+//    };
+//    this.setState({ingredients: [ingredient1]});
+    
+    client({method: 'GET', path: this.props.recipe._links.ingredients.href}).done(response => {
+      this.setState( {ingredients: response.entity._embedded.ingredients});
+    });
+
+  }
+
 	render() {
+	
 		return (
 			<tr>
 				<td>{this.props.recipe.title}</td>
 				<td>{this.props.recipe.pageNumber}</td>
-				<td>{this.props.recipe.title}</td>
+				<td><IngredientList ingredients={this.state.ingredients} /></td>
 			</tr>
 		)
 	}
 }
-// end::recipe[]
 
-// tag::render[]
+class IngredientList extends React.Component {
+  render() {
+    var ingredients = this.props.ingredients.map(ingredient => 
+      <Ingredient key={ingredient._links.self.href} ingredient={ingredient} />
+    );
+    return (
+        <span>{ingredients}</span>
+    )
+  }
+}
+
+class Ingredient extends React.Component {
+  render() {
+    return (
+        <a href={this.props.ingredient._links.self.href}>{this.props.ingredient.name}, </a>
+    )
+  }
+}
+
 ReactDOM.render(
 	<App />,
 	document.getElementById('react')
 )
-// end::render[]
+
 
