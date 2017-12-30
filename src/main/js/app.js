@@ -34,6 +34,7 @@ class RecipeList extends React.Component{
 				<tbody>
 					<tr>
 						<th>Title</th>
+						<th>Book</th>
 						<th>Page Number</th>
 						<th>Ingredients</th>
 					</tr>
@@ -48,7 +49,9 @@ class Recipe extends React.Component{
   
   constructor(props) {
     super(props);
-    this.state = {ingredients: []};
+    this.state = {ingredients: [],
+    		book: null
+    };
   }
 
   componentDidMount() {
@@ -66,6 +69,10 @@ class Recipe extends React.Component{
     client({method: 'GET', path: this.props.recipe._links.ingredients.href}).done(response => {
       this.setState( {ingredients: response.entity._embedded.ingredients});
     });
+    
+    client({method: 'GET', path: this.props.recipe._links.book.href}).done(response => {
+    	this.setState( {book: response.entity.title});
+    });
 
   }
 
@@ -74,6 +81,7 @@ class Recipe extends React.Component{
 		return (
 			<tr>
 				<td>{this.props.recipe.title}</td>
+				<td>{this.state.book}</td>
 				<td>{this.props.recipe.pageNumber}</td>
 				<td><IngredientList ingredients={this.state.ingredients} /></td>
 			</tr>
@@ -95,7 +103,9 @@ class IngredientList extends React.Component {
 class Ingredient extends React.Component {
   render() {
     return (
-        <a href={this.props.ingredient._links.self.href}>{this.props.ingredient.name}, </a>
+        //<a href={this.props.ingredient._links.self.href}>{this.props.ingredient.name}, </a>
+    		
+    	<span>{this.props.ingredient.name}, </span>
     )
   }
 }
