@@ -1,6 +1,7 @@
 package org.grantharper.recipe.bootstrap;
 
 import org.grantharper.recipe.domain.RecipePage;
+import org.grantharper.recipe.model.Book;
 import org.grantharper.recipe.repository.RecipeRepository;
 import org.grantharper.recipe.service.IndexingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 @Component
-@Profile("dev")
+@Profile("none")
 public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent>
 {
 
@@ -51,8 +52,15 @@ public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent
     private static final String INGREDIENT_LIST_3 = INGREDIENT_7 + "; " + INGREDIENT_8 + "; " + INGREDIENT_9 + "; "
             + INGREDIENT_10;
 
+    private static final String BOOK_TITLE = "slt";
+    private static final String BOOK_AUTHOR = "various";
+    
     public void loadRecipes()
     {
+        Book book = new Book();
+        book.setTitle(BOOK_TITLE);
+        book.setAuthor(BOOK_AUTHOR);
+        
         RecipePage recipe1 = new RecipePage();
         recipe1.setTitle(RECIPE_1_TITLE);
         recipe1.setPageNumber(RECIPE_1_PAGE_NUMBER);
