@@ -29,6 +29,8 @@ public class DatabaseLoader implements CommandLineRunner
         i2.setName("flour");
         Ingredient i3 = new Ingredient();
         i3.setName("tomatoes");
+        Ingredient i4 = new Ingredient();
+        i4.setName("lettuce");
 
         Book slt = new Book();
         slt.setAuthor("various");
@@ -40,17 +42,23 @@ public class DatabaseLoader implements CommandLineRunner
         Recipe r2 = new Recipe();
         r2.setTitle("mac and cheese");
         r2.setPageNumber(5);
+        Recipe r3 = new Recipe();
+        r3.setTitle("salad");
+        r3.setPageNumber(7);
 
         i1.setRecipes(Stream.of(r1, r2).collect(Collectors.toSet()));
         i2.setRecipes(Stream.of(r1, r2).collect(Collectors.toSet()));
-        i3.setRecipes(Stream.of(r1).collect(Collectors.toSet()));
+        i3.setRecipes(Stream.of(r1, r3).collect(Collectors.toSet()));
+        i4.setRecipes(Stream.of(r3).collect(Collectors.toSet()));
         
         r1.setIngredients(Stream.of(i1, i2, i3).collect(Collectors.toSet()));
         r2.setIngredients(Stream.of(i1, i2).collect(Collectors.toSet()));
+        r3.setIngredients(Stream.of(i3, i4).collect(Collectors.toSet()));
         
-        slt.setRecipes(Stream.of(r1, r2).collect(Collectors.toSet()));
+        slt.setRecipes(Stream.of(r1, r2, r3).collect(Collectors.toSet()));
         r1.setBook(slt);
         r2.setBook(slt);
+        r3.setBook(slt);
 
         bookRepo.save(slt);
 

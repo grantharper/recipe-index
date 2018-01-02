@@ -48,15 +48,6 @@ public class RecipeRepositoryIntegrationTest
   }
 
   @Test
-  public void testFindAll()
-  {
-    List<Recipe> recipes = recipeRepo.findAll();
-
-    assertThat(recipes.size(), equalTo(1));
-
-  }
-
-  @Test
   public void testSearch()
   {
 

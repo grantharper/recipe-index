@@ -5,9 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/react")
 public class ReactController
 {
-    @RequestMapping(value="/react", method=RequestMethod.GET)
+    @RequestMapping("")
     public String getReactIndex() {
         return "index-react";
     }

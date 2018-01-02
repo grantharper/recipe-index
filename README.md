@@ -10,7 +10,7 @@ To start the service in test environment mode, you will need to first configure 
 
 You will also need to configure your system environment variables to contain the `RECIPE_PASSWORD` which matches your user password for the database
 
-#Docker info
+# Docker info
 
 This code is published to the following docker hub repo
 
@@ -23,3 +23,10 @@ To run the container image with the embedded database on port 80 of the host mac
 To build a local image 
 
 `mvn install dockerfile:build`
+
+# React Info
+
+To allow for react to dynamically update without having to run the full build, run the following command
+
+`npm run-script watch`
+
