@@ -133,16 +133,16 @@ class RecipeList extends React.Component{
 	  var navLinks = [];
 	  
 	  if ("first" in this.props.links) {
-	    navLinks.push(<button className="page-item" key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
+	    navLinks.push(<button className="btn btn-success" key="first" onClick={this.handleNavFirst}>&lt;&lt;</button>);
 	  }
 	  if ("prev" in this.props.links) {
-	    navLinks.push(<button className="page-item" key="prev" onClick={this.handleNavPrev}>&lt;</button>);
+	    navLinks.push(<button className="btn" key="prev" onClick={this.handleNavPrev}>&lt;</button>);
 	  }
 	  if ("next" in this.props.links) {
-	    navLinks.push(<button className="page-item" key="next" onClick={this.handleNavNext}>&gt;</button>);
+	    navLinks.push(<button className="btn" key="next" onClick={this.handleNavNext}>&gt;</button>);
 	  }
 	  if ("last" in this.props.links) {
-	    navLinks.push(<button className="page-item" key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
+	    navLinks.push(<button className="btn" key="last" onClick={this.handleNavLast}>&gt;&gt;</button>);
 	  }
 	  
 		
