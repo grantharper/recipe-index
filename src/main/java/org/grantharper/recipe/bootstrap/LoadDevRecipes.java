@@ -1,24 +1,37 @@
 package org.grantharper.recipe.bootstrap;
 
 import org.grantharper.recipe.domain.RecipePage;
+import org.grantharper.recipe.model.RecipeUser;
 import org.grantharper.recipe.repository.RecipeRepository;
+import org.grantharper.recipe.repository.UserRepository;
 import org.grantharper.recipe.service.IndexingService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @Profile("dev")
 public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent>
 {
+  
+  private static final Logger log = LoggerFactory.getLogger(LoadDevRecipes.class);
 
   @Autowired
   RecipeRepository recipeRepo;
 
   @Autowired
   IndexingService indexingService;
+  
+  @Autowired
+  UserRepository userRepository;
+  
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   @Override
   public void onApplicationEvent(ContextRefreshedEvent event)
@@ -70,6 +83,11 @@ public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent
     recipe3.setPageNumber(RECIPE_3_PAGE_NUMBER);
     recipe3.setIngredients(INGREDIENT_LIST_3);
     indexingService.addRecipe(recipe3);
+    
+    RecipeUser user = new RecipeUser();
+    user.setUsername("test");
+    user.setPassword(passwordEncoder.encode("test"));
+    userRepository.save(user);
 
   }
 
