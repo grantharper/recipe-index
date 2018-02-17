@@ -1,6 +1,12 @@
+### Custom ###
+recipe-index.pem
+src/main/resources/application-prod.properties
 target/
 !.mvn/wrapper/maven-wrapper.jar
 pom.xml.versionsBackup
+node_modules/
+src/main/resources/static/built/
+aws.txt
 
 ### STS ###
 .apt_generated
