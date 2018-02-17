@@ -12,7 +12,7 @@ public class AuthenticationTest
   @Test
   public void testEncoding()
   {
-    PasswordEncoder encoder = new BCryptPasswordEncoder(11);
+    PasswordEncoder encoder = new BCryptPasswordEncoder();
     String password = "test";
     String encodedPassword = encoder.encode(password);
     System.out.println(encodedPassword);

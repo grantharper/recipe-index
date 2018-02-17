@@ -39,7 +39,12 @@ public class RecipeController
   @Autowired
   private RecipeValidator recipeValidator;
   
-  @RequestMapping(value = "/", method = RequestMethod.GET)
+  @RequestMapping(value= "/", method = RequestMethod.GET)
+  public String getLanding(Model model){
+    return "landing";
+  }
+  
+  @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String getIndex(Model model)
   {
     model.addAttribute("searchRecipe", new RecipeSearch());
