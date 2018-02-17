@@ -8,6 +8,9 @@ node_modules/
 src/main/resources/static/built/
 aws.txt
 
+### VSCode ###
+.vscode/
+
 ### STS ###
 .apt_generated
 .classpath
