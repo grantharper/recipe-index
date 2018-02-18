@@ -1,1 +1,1 @@
-web: mvn spring-boot:run -Dspring.profiles.active=dev -Dserver.port=5000
+web: mvn spring-boot:run -Dspring.profiles.active=prodeb
