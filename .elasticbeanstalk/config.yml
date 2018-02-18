@@ -1,4 +1,6 @@
 branch-defaults:
+  elasticbeanstalk:
+    environment: recipe-index-dev
   master:
     environment: recipe-index-dev
     group_suffix: null
