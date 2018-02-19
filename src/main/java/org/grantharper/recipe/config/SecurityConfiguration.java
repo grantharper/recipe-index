@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
         .anyRequest().authenticated()
         .and()
         .formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll().and()
-        .logout().logoutSuccessUrl("/login").permitAll();
+        .logout().logoutSuccessUrl("/login?logout").permitAll();
     
     // disable these protections so that I can access the H2 console
     //httpSecurity.csrf().disable();
