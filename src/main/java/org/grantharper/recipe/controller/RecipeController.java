@@ -8,7 +8,7 @@ import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.domain.RecipeSearch;
 import org.grantharper.recipe.model.Ingredient;
 import org.grantharper.recipe.model.Recipe;
-import org.grantharper.recipe.service.IndexingService;
+import org.grantharper.recipe.service.IndexingContract;
 import org.grantharper.recipe.validator.RecipeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class RecipeController
   private static final Logger log = LoggerFactory.getLogger(RecipeController.class);
 
   @Autowired
-  private IndexingService indexingService;
+  private IndexingContract indexingService;
   
   @Autowired
   private RecipeValidator recipeValidator;
@@ -56,6 +56,7 @@ public class RecipeController
   public String getRecipeAdd(Model model)
   {
     model.addAttribute("recipe", new RecipePage());
+    model.addAttribute("bookTitles", indexingService.getBookTitles());
     return "recipe-form";
   }
 
@@ -101,6 +102,7 @@ public class RecipeController
   @RequestMapping(value = "/recipes/{recipeId}/edit", method = RequestMethod.GET)
   public String editViewByRecipeId(Model model, @PathVariable("recipeId") Long recipeId){
     model.addAttribute("recipe", indexingService.editViewRecipeById(recipeId));
+    model.addAttribute("bookTitles", indexingService.getBookTitles());
     return "recipe-form";
   }
   

@@ -6,6 +6,8 @@ public class RecipePage
 {
 
   private String title;
+  
+  private String book;
 
   private String pageNumber;
 
@@ -48,6 +50,16 @@ public class RecipePage
 
     this.ingredients = ingredients.toLowerCase();
 
+  }
+
+  public String getBook()
+  {
+    return book;
+  }
+
+  public void setBook(String book)
+  {
+    this.book = book;
   }
 
   @Override

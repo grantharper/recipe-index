@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Recipe implements Comparable<Recipe>
@@ -29,6 +30,9 @@ public class Recipe implements Comparable<Recipe>
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(name = "recipe_ingredient", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
   private Set<Ingredient> ingredients = new TreeSet<>();
+  
+  @ManyToOne
+  private Book book;
 
   public Long getId()
   {
@@ -69,8 +73,16 @@ public class Recipe implements Comparable<Recipe>
   {
     this.ingredients = ingredients;
   }
-  
-  
+
+  public Book getBook()
+  {
+    return book;
+  }
+
+  public void setBook(Book book)
+  {
+    this.book = book;
+  }
 
   @Override
   public String toString()

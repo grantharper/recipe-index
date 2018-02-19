@@ -1,7 +1,9 @@
 package org.grantharper.recipe.bootstrap;
 
 import org.grantharper.recipe.domain.RecipePage;
+import org.grantharper.recipe.model.Book;
 import org.grantharper.recipe.model.RecipeUser;
+import org.grantharper.recipe.repository.BookRepository;
 import org.grantharper.recipe.repository.RecipeRepository;
 import org.grantharper.recipe.repository.UserRepository;
 import org.grantharper.recipe.service.IndexingService;
@@ -29,6 +31,9 @@ public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent
   
   @Autowired
   UserRepository userRepository;
+  
+  @Autowired
+  BookRepository bookRepo;
   
   @Autowired
   PasswordEncoder passwordEncoder;
@@ -64,24 +69,35 @@ public class LoadDevRecipes implements ApplicationListener<ContextRefreshedEvent
   private static final String INGREDIENT_LIST_3 = INGREDIENT_7 + "; " + INGREDIENT_8 + "; " + INGREDIENT_9 + "; "
       + INGREDIENT_10;
 
+  private static final String BOOK_TITLE = "Sur La Table";
+  private static final String BOOK_AUTHOR = "various";
+  
   public void loadRecipes()
   {
+    Book book = new Book();
+    book.setTitle(BOOK_TITLE);
+    book.setAuthor(BOOK_AUTHOR);
+    bookRepo.save(book);
+    
     RecipePage recipe1 = new RecipePage();
     recipe1.setTitle(RECIPE_1_TITLE);
     recipe1.setPageNumber(RECIPE_1_PAGE_NUMBER);
     recipe1.setIngredients(INGREDIENT_LIST_1);
+    recipe1.setBook(BOOK_TITLE);
     indexingService.addRecipe(recipe1);
 
     RecipePage recipe2 = new RecipePage();
     recipe2.setTitle(RECIPE_2_TITLE);
     recipe2.setPageNumber(RECIPE_2_PAGE_NUMBER);
     recipe2.setIngredients(INGREDIENT_LIST_2);
+    recipe2.setBook(BOOK_TITLE);
     indexingService.addRecipe(recipe2);
 
     RecipePage recipe3 = new RecipePage();
     recipe3.setTitle(RECIPE_3_TITLE);
     recipe3.setPageNumber(RECIPE_3_PAGE_NUMBER);
     recipe3.setIngredients(INGREDIENT_LIST_3);
+    recipe3.setBook(BOOK_TITLE);
     indexingService.addRecipe(recipe3);
     
     RecipeUser user = new RecipeUser();

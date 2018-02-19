@@ -4,7 +4,10 @@
 <body>
   <nav th:replace="fragments/navbar :: navbar"></nav>
   <div class="container">
-    <h3 th:text="${recipe.title}"></h3>
+    <div>
+      <span class="h3" th:text="${recipe.title}"></span>
+      <span class="text-muted" th:text="' from ' + ${recipe.book.title}"></span>
+    </div>
     <div>
       <ul>
         <li th:each="ingredient : ${recipe.ingredients}"><a th:href="@{/ingredients/} + ${ingredient.id}" th:text="${ingredient.name}"></a></li>
