@@ -32,6 +32,7 @@ public class Recipe implements Comparable<Recipe>
   private Set<Ingredient> ingredients = new TreeSet<>();
   
   @ManyToOne
+  @JoinColumn(name = "book_id")
   private Book book;
 
   public Long getId()
