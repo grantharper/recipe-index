@@ -8,7 +8,7 @@
 	<version>0.0.2</version>
 	<packaging>jar</packaging>
 	<name>recipe-index</name>
-	<description>Pizza ordering system sample application</description>
+	<description>Recipe indexing application</description>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
