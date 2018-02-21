@@ -6,7 +6,7 @@
   <div class="container">
     <h1>Add a Recipe</h1>
     <form id="recipe-form" action="" method="post">
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <input th:if="${@environment.getActiveProfiles()[0] != 'dev'}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
       <div class="form-group">
         <input type="text" class="form-control" th:field="${recipe.title}" placeholder="Recipe Title" />
         <p class="error" th:if="${#fields.hasErrors('recipe.title')}" th:errors="${recipe.title}"></p>

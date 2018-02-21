@@ -15,10 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Profile({"!dev"})
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
+@Profile({"dev"})
+public class DevSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
-  
   @Autowired
   RecipeUserDetailsService userDetailsService;
   
@@ -30,12 +29,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
   @Override
   protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-    httpSecurity.authorizeRequests()
+    httpSecurity.authorizeRequests().antMatchers("/console/**", "/**").permitAll()
         .antMatchers("/health", "/webjars/**", "/css/**", "/js/**", "/img/**", "/favicon.png").permitAll()
         .anyRequest().authenticated()
         .and()
         .formLogin().loginPage("/login").defaultSuccessUrl("/", true).permitAll().and()
         .logout().logoutSuccessUrl("/login?logout").permitAll();
+    
+    // disable these protections so that I can access the H2 console
+    httpSecurity.csrf().disable();
+    httpSecurity.headers().frameOptions().disable();
     
   }
   
@@ -52,4 +55,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
       return new BCryptPasswordEncoder();
   }
   
+    
 }
