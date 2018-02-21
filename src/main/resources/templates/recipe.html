@@ -14,7 +14,7 @@
       </ul>
     </div>
     <form th:action="@{/recipes/} + ${recipe.id} + '/edit'" method="get">
-      <button type="submit" class="btn btn-primary">Edit Recipe</button>
+      <button type="submit" class="btn btn-secondary">Edit Recipe</button>
     </form>
     <!-- <form th:action="@{/recipes/} + ${recipe.id} + '/delete'" method="post"> -->
     <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete Recipe</button>

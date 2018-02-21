@@ -1,0 +1,27 @@
+@link-color: #215988;
+@background: #60EAE0;
+@dark: #000;
+
+a {
+	color: @link-color;
+}
+
+nav {
+	background-color: @background;
+}
+
+.page-item.active{
+  .page-link {
+		background-color: @background;
+		color: @dark;
+		border-color: @background;
+	}
+}
+
+.page-link {
+	color: @dark;
+	&:hover {
+		background-color: @background;
+		color: @dark;
+	}
+}

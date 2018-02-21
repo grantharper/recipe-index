@@ -1,26 +1,3 @@
-a {
-	color: #215988;
-}
-
-nav {
-	background-color: #60EAE0;
-}
-
-.page-item.active .page-link {
-	background-color: #60EAE0;
-	color: #000;
-	border-color: #60EAE0;
-}
-
-.page-link {
-	color: #000;
-}
-
-.page-link:hover {
-	background-color: #60EAE0;
-	color: #000;
-}
-
 form.form-inline {
 	margin-bottom: 0px;
 }

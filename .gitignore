@@ -7,6 +7,7 @@ pom.xml.versionsBackup
 node_modules/
 src/main/resources/static/built/
 aws.txt
+src/main/resources/static/css/main.css
 
 ### VSCode ###
 .vscode/
@@ -31,8 +32,13 @@ build/
 nbbuild/
 dist/
 nbdist/
-.nb-gradle/
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+.nb-gradle/
+
+# Elastic Beanstalk Files
+
+.elasticbeanstalk/*
+
+!.elasticbeanstalk/*.cfg.yml
+
+!.elasticbeanstalk/*.global.yml
+
