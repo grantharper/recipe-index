@@ -19,7 +19,9 @@ OptionSettings:
     DB_PASSWORD: <fake>
     GRADLE_HOME: /usr/local/gradle
   aws:elb:loadbalancer:
+    LoadBalancerHTTPSPort: '443'
     CrossZone: true
+    SSLCertificateId: <fake>
   aws:elasticbeanstalk:environment:
     ServiceRole: aws-elasticbeanstalk-service-role
   aws:elasticbeanstalk:application:
