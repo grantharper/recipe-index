@@ -35,10 +35,6 @@ nbdist/
 .nb-gradle/
 
 # Elastic Beanstalk Files
-
-.elasticbeanstalk/*
-
-!.elasticbeanstalk/*.cfg.yml
-
+.elasticbeanstalk/saved_configs/healthy.cfg.yml
 !.elasticbeanstalk/*.global.yml
 

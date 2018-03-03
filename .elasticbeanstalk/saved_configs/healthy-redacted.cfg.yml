@@ -1,0 +1,41 @@
+EnvironmentConfigurationMetadata:
+  Description: Configuration created from the EB CLI using "eb config save".
+  DateCreated: '1520102886000'
+  DateModified: '1520102886000'
+Platform:
+  PlatformArn: arn:aws:elasticbeanstalk:us-east-1::platform/Java 8 running on 64bit Amazon Linux/2.6.6
+OptionSettings:
+  aws:elasticbeanstalk:command:
+    BatchSize: '30'
+    BatchSizeType: Percentage
+  aws:elb:policies:
+    ConnectionDrainingEnabled: true
+  aws:elasticbeanstalk:application:environment:
+    DB_USERNAME: <fake>
+    M2: /usr/local/apache-maven/bin
+    DB_URL: <fake>
+    M2_HOME: /usr/local/apache-maven
+    JAVA_HOME: /usr/lib/jvm/java
+    DB_PASSWORD: <fake>
+    GRADLE_HOME: /usr/local/gradle
+  aws:elb:loadbalancer:
+    CrossZone: true
+  aws:elasticbeanstalk:environment:
+    ServiceRole: aws-elasticbeanstalk-service-role
+  aws:elasticbeanstalk:application:
+    Application Healthcheck URL: /health
+  aws:elasticbeanstalk:healthreporting:system:
+    SystemType: enhanced
+  aws:autoscaling:launchconfiguration:
+    SecurityGroups:
+    - default
+    IamInstanceProfile: aws-elasticbeanstalk-ec2-role
+    InstanceType: t2.micro
+    EC2KeyName: <fake>
+  aws:autoscaling:updatepolicy:rollingupdate:
+    RollingUpdateType: Health
+    RollingUpdateEnabled: true
+EnvironmentTier:
+  Type: Standard
+  Name: WebServer
+AWSConfigurationTemplateVersion: 1.1.0.0

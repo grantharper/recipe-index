@@ -59,6 +59,17 @@ To deploy changes that are staged in git but not commited
 
 Add environment variables for the database config that is listed in `application-prodeb.properties`
 
+Store the config changes made such as changing the health check url, updating the security groups, and adding environment variables by running the following command
+
+`eb config save --cfg <config-name>`
+
+This will store a file in `.elasticbeanstalk/saved_configs/<config-name>.yml` which will be used when creating the environment from scratch
+
+Tear down the environment using `eb terminate`
+
+Then re-create using the config `eb create --cfg savedconfig`
+
+
 ## EC2 
 
 Initially attempted this approach, but the reverse proxy was easier to configure using elastic beanstalk as outlined above.
