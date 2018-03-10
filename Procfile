@@ -1,1 +1,1 @@
-web: mvn spring-boot:run -Dspring.profiles.active=prodeb
+web: ./gradlew bootRun -Dspring.profiles.active=prodeb
