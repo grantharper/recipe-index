@@ -1,0 +1,2 @@
+#Set line endings for gradlew to unix
+gradlew text eol=lf
