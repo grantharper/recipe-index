@@ -80,7 +80,7 @@ public class IndexingServiceTest
   @Test
   public void testEditViewRecipeById()
   {
-    when(recipeRepo.findOne(RECIPE_ID)).thenReturn(DB_RECIPE_1);
+    when(recipeRepo.getOne(RECIPE_ID)).thenReturn(DB_RECIPE_1);
     RecipePage recipePage = indexingService.editViewRecipeById(RECIPE_ID);
     
     assertThat(recipePage.getTitle(), equalTo(RECIPE_TITLE));
