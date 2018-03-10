@@ -91,7 +91,7 @@ public class IndexingService implements IndexingContract
   @Override
   public RecipePage editViewRecipeById(Long recipeId)
   {
-    Recipe recipe = recipeRepo.findOne(recipeId);
+    Recipe recipe = recipeRepo.getOne(recipeId);
     RecipePage recipePage = new RecipePage();
 
     recipePage.setTitle(recipe.getTitle());
@@ -114,17 +114,17 @@ public class IndexingService implements IndexingContract
   @Override
   public Ingredient viewIngredientById(Long ingredientId)
   {
-    return ingredientRepo.findOne(ingredientId);
+    return ingredientRepo.getOne(ingredientId);
   }
 
   public Recipe viewRecipeById(Long recipeId)
   {
-    return recipeRepo.findOne(recipeId);
+    return recipeRepo.getOne(recipeId);
   }
 
   public void deleteRecipeById(Long recipeId)
   {
-    Recipe recipe = recipeRepo.findOne(recipeId);
+    Recipe recipe = recipeRepo.getOne(recipeId);
 
     recipe.getIngredients()
           .clear();
@@ -136,7 +136,7 @@ public class IndexingService implements IndexingContract
   @Override
   public void deleteIngredientById(Long ingredientId)
   {
-    Ingredient ingredient = ingredientRepo.findOne(ingredientId);
+    Ingredient ingredient = ingredientRepo.getOne(ingredientId);
 
     // check if the ingredient is still in a recipe
     if (!ingredient.getRecipes()
@@ -171,7 +171,7 @@ public class IndexingService implements IndexingContract
   @Override
   public void updateRecipe(Long recipeId, RecipePage recipePage)
   {
-    Recipe recipe = recipeRepo.findOne(recipeId);
+    Recipe recipe = recipeRepo.getOne(recipeId);
 
     recipe.setTitle(recipePage.getTitle());
     recipe.setPageNumber(Integer.valueOf(recipePage.getPageNumber()));
