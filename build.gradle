@@ -3,8 +3,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.0.RELEASE")
+        classpath "org.lesscss:lesscss:1.3.0"
     }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.0.0.RELEASE'
+}
+
+task lessCompile << {
+    def compiler = new org.lesscss.LessCompiler()
+    compiler.compile(file("src/main/resources/less/main.less"), file("src/main/resources/static/css/main.css"))
 }
 
 apply plugin: 'java'
@@ -12,9 +21,6 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'application'
-
-mainClassName = "org.grantharper.recipe.RecipeIndexApplication"
 
 bootRun {
     systemProperties = System.properties
@@ -59,3 +65,4 @@ dependencies {
         exclude(module: 'groovy-all')
     }
 }
+
