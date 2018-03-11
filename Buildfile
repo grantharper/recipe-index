@@ -1,1 +1,1 @@
-build: chmod 755 gradlew && ./gradlew build
+build: chmod 755 gradlew && ./gradlew lessCompile && ./gradlew build
