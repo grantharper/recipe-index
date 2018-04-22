@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+  <div th:fragment="search">
+
+    <form th:action="@{/elasticsearch}" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control" th:field="${searchRecipe.searchTerm}" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-secondary" type="submit">Search</button>
+      </div>
+    </form>
+
+    <table class="table" th:if="${searchResults} != null">
+      <thead>
+        <tr>
+          <th>Book</th>
+          <th>Title</th>
+          <th>Page</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr th:each="recipe : ${searchResults}">
+          <td th:text="${recipe.book}"></td>
+          <td th:text="${recipe.title}"></td>
+          <td th:text="${recipe.pageNumber}"></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</body>
+</html>
