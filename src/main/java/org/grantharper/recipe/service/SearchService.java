@@ -1,11 +1,11 @@
 package org.grantharper.recipe.service;
 
+import org.apache.lucene.search.BooleanQuery;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.common.unit.Fuzziness;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class SearchService
@@ -36,30 +37,42 @@ public class SearchService
 
   public List<RecipePage> searchElasticsearchForIngredients(String ingredientSearch)
   {
-      logger.info("performing search: " + ingredientSearch);
+    logger.info("performing search: " + ingredientSearch);
 
-      SearchHits searchHits = searchRecipeIndexByIngredients(ingredientSearch);
-      List<RecipePage> locatedRecipes = new ArrayList<>();
+    SearchHits searchHits = searchRecipeIndexByIngredients(ingredientSearch);
+    List<RecipePage> locatedRecipes = new ArrayList<>();
 
-      for(SearchHit searchHit: searchHits.getHits()){
-        Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();
-        String pageId = (String) sourceAsMap.get("pageId");
-        String book = (String) sourceAsMap.get("book");
-        String title = (String) sourceAsMap.get("title");
-        String result = "title: " + title + ", location: " + book + "-" + pageId;
-        logger.info(result);
-        RecipePage recipePage = new RecipePage();
-        recipePage.setBook(book);
-        recipePage.setTitle(title);
-        recipePage.setPageNumber(pageId);
-        //recipePage.setIngredients();
-        locatedRecipes.add(recipePage);
-      }
-
-      return locatedRecipes;
+    for (SearchHit searchHit : searchHits.getHits()) {
+      Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();
+      String pageId = (String) sourceAsMap.get("pageId");
+      String book = (String) sourceAsMap.get("book");
+      String title = (String) sourceAsMap.get("title");
+      List<String> ingredients = (List<String>) sourceAsMap.get("ingredients");
+      String result = "title: " + title + ", location: " + book + "-" + pageId;
+      logger.info(result);
+      RecipePage recipePage = new RecipePage();
+      recipePage.setBook(book);
+      recipePage.setTitle(title);
+      recipePage.setPageNumber(pageId);
+      recipePage.setIngredients(displayIngredients(ingredients));
+      locatedRecipes.add(recipePage);
     }
 
-  SearchHits searchRecipeIndexByIngredients(String ingredientSearch){
+    return locatedRecipes;
+  }
+
+  String displayIngredients(List<String> ingredientArray)
+  {
+//    String ingredientsDisplay = "";
+    return ingredientArray.stream().collect(Collectors.joining("\n")); //need html newline character
+//    for (String ingredient : ingredientArray) {
+//      ingredientsDisplay += ingredient;
+//    }
+//    return ingredientsDisplay;
+  }
+
+  SearchHits searchRecipeIndexByIngredients(String ingredientSearch)
+  {
     SearchRequest searchRequest = new SearchRequest(RECIPE_INDEX_NAME);
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     searchSourceBuilder.query(createIngredientQuery(ingredientSearch));
@@ -68,21 +81,35 @@ public class SearchService
     return searchResponse.getHits();
   }
 
+  private BoolQueryBuilder getBoolQueryBuilderMatchStyle(String ingredientSearch, BoolQueryBuilder boolQueryBuilder)
+  {
+    return boolQueryBuilder.must(
+            new MatchQueryBuilder("ingredients", ingredientSearch)
+                    .operator(Operator.AND).fuzziness(Fuzziness.AUTO));
+  }
+
   BoolQueryBuilder createIngredientQuery(String ingredientSearch)
   {
     List<TermQueryBuilder> booleanTerms = new ArrayList<>();
     BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-    String[] ingredientTerms = ingredientSearch.split(" ");
-    for(String ingredientTerm: ingredientTerms)
-    {
-      boolQueryBuilder = boolQueryBuilder.must(QueryBuilders.termQuery("ingredients", ingredientTerm));
-    }
+    //boolQueryBuilder = getBoolQueryBuilderTermStyle(ingredientSearch, boolQueryBuilder);
+    boolQueryBuilder = getBoolQueryBuilderMatchStyle(ingredientSearch, boolQueryBuilder);
     boolQueryBuilder = boolQueryBuilder.must(QueryBuilders.termQuery("book", "Sur La Table"));
     return boolQueryBuilder;
   }
 
+  private BoolQueryBuilder getBoolQueryBuilderTermStyle(String ingredientSearch, BoolQueryBuilder boolQueryBuilder)
+  {
+    String[] ingredientTerms = ingredientSearch.split(" ");
+    for (String ingredientTerm : ingredientTerms) {
+      boolQueryBuilder = boolQueryBuilder.must(QueryBuilders.termQuery("ingredients", ingredientTerm));
+    }
+    return boolQueryBuilder;
+  }
 
-  SearchResponse performSearch(SearchRequest searchRequest) {
+
+  SearchResponse performSearch(SearchRequest searchRequest)
+  {
     SearchResponse response;
     try {
       response = restHighLevelClient.search(searchRequest);
