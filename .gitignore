@@ -25,6 +25,7 @@ src/main/resources/static/css/main.css
 *.iws
 *.iml
 *.ipr
+out/
 
 ### Gradle ###
 build/
