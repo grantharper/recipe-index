@@ -29,6 +29,11 @@ public class SearchService
 
   private RestHighLevelClient restHighLevelClient;
 
+  RestHighLevelClient getRestHighLevelClient()
+  {
+    return restHighLevelClient;
+  }
+
   @Autowired
   public SearchService(RestHighLevelClient restHighLevelClient)
   {
@@ -49,7 +54,7 @@ public class SearchService
       String title = (String) sourceAsMap.get("title");
       List<String> ingredients = (List<String>) sourceAsMap.get("ingredients");
       String result = "title: " + title + ", location: " + book + "-" + pageId;
-      logger.info(result);
+      logger.debug(result);
       RecipePage recipePage = new RecipePage();
       recipePage.setBook(book);
       recipePage.setTitle(title);
@@ -63,12 +68,7 @@ public class SearchService
 
   String displayIngredients(List<String> ingredientArray)
   {
-//    String ingredientsDisplay = "";
-    return ingredientArray.stream().collect(Collectors.joining("\n")); //need html newline character
-//    for (String ingredient : ingredientArray) {
-//      ingredientsDisplay += ingredient;
-//    }
-//    return ingredientsDisplay;
+    return ingredientArray.stream().collect(Collectors.joining("<br/>"));
   }
 
   SearchHits searchRecipeIndexByIngredients(String ingredientSearch)

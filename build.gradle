@@ -35,6 +35,10 @@ task lessCompile << {
   compiler.compile(file("src/main/resources/less/main.less"), file("src/main/resources/static/css/main.css"))
 }
 
+test {
+  exclude '**/*Integration*'
+}
+
 bootRun {
   systemProperties = System.properties
 }
