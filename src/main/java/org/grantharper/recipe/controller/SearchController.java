@@ -1,7 +1,7 @@
 package org.grantharper.recipe.controller;
 
-import org.grantharper.recipe.domain.RecipePage;
 import org.grantharper.recipe.domain.RecipeSearch;
+import org.grantharper.recipe.domain.RecipeSearchResult;
 import org.grantharper.recipe.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ public class SearchController
   @RequestMapping(method = RequestMethod.POST)
   public String search(Model model, @ModelAttribute("searchRecipe") RecipeSearch recipeSearch)
   {
-    List<RecipePage> recipePageList = searchService.searchElasticsearchForIngredients(recipeSearch.getSearchTerm());
+    List<RecipeSearchResult> recipePageList = searchService.searchElasticsearchForIngredients(recipeSearch.getSearchTerm());
     model.addAttribute("searchResults", recipePageList);
     return "elasticsearch";
   }

@@ -1,6 +1,5 @@
 package org.grantharper.recipe.service;
 
-import org.apache.lucene.search.BooleanQuery;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -9,7 +8,7 @@ import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.grantharper.recipe.domain.RecipePage;
+import org.grantharper.recipe.domain.RecipeSearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +39,12 @@ public class SearchService
     this.restHighLevelClient = restHighLevelClient;
   }
 
-  public List<RecipePage> searchElasticsearchForIngredients(String ingredientSearch)
+  public List<RecipeSearchResult> searchElasticsearchForIngredients(String ingredientSearch)
   {
     logger.info("performing search: " + ingredientSearch);
 
     SearchHits searchHits = searchRecipeIndexByIngredients(ingredientSearch);
-    List<RecipePage> locatedRecipes = new ArrayList<>();
+    List<RecipeSearchResult> locatedRecipes = new ArrayList<>();
 
     for (SearchHit searchHit : searchHits.getHits()) {
       Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();
@@ -55,11 +54,11 @@ public class SearchService
       List<String> ingredients = (List<String>) sourceAsMap.get("ingredients");
       String result = "title: " + title + ", location: " + book + "-" + pageId;
       logger.debug(result);
-      RecipePage recipePage = new RecipePage();
+      RecipeSearchResult recipePage = new RecipeSearchResult();
       recipePage.setBook(book);
       recipePage.setTitle(title);
       recipePage.setPageNumber(pageId);
-      recipePage.setIngredients(displayIngredients(ingredients));
+      recipePage.setIngredients(ingredients);
       locatedRecipes.add(recipePage);
     }
 

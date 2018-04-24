@@ -2,18 +2,16 @@
 <head th:replace="fragments/head :: head">
 </head>
 <body>
-  <nav th:replace="fragments/navbar :: navbar"></nav>
-  <div class="container">
-   <!-- <div class="jumbotron">
-      <h1 class="display-4" th:text="'Welcome to ' + #{app.title}"></h1>
-      <p class="lead">Index and search all of those neglected yet delicious printed recipes</p>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4" th:text="'Welcome to ' + #{app.title}"></h1>
+    <p class="lead">Search all of those neglected yet delicious printed recipes</p>
 
-    </div>-->
-    <p>Elasticsearch Testing</p>
-    <p>Type any part of a recipe title or ingredient to search the index</p>
-    <div th:replace="fragments/elasticsearch-results-table :: search"></div>
   </div>
-
+  <p>Search any combination of ingredients</p>
+  <div th:replace="fragments/elasticsearch-results-table :: search"></div>
+</div>
 
 
 </body>

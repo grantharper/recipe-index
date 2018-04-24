@@ -18,7 +18,7 @@
           <th>Book</th>
           <th>Title</th>
           <th>Page</th>
-          <!--<th>Ingredients</th>-->
+          <th>Ingredients</th>
         </tr>
 
       </thead>
@@ -27,7 +27,9 @@
           <td th:text="${recipe.book}"></td>
           <td th:text="${recipe.title}"></td>
           <td th:text="${recipe.pageNumber}"></td>
-          <!--<td th:text="${recipe.ingredients}"></td>-->
+          <td>
+            <div th:each="ingredient: ${recipe.ingredients}" th:text="${ingredient}"></div>
+          </td>
         </tr>
       </tbody>
 
