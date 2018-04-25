@@ -9,9 +9,6 @@ function toggleIngredientListDisplay(displayButton){
   var td = displayButton.parent();
   var styleAttr = $('div.ingredientList', td).attr('style');
   if(styleAttr == 'display:visible;'){
-    displayed = true;
-  }
-  if(displayed){
     console.log('make invisible');
     $('div.ingredientList', td).attr('style', 'display:none;');
     $('button', td).html('+');
