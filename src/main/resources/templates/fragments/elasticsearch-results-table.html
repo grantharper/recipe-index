@@ -2,7 +2,7 @@
 
 <body>
   <div th:fragment="search">
-
+    <script th:src="@{/js/elasticsearch.js}"></script>
     <form th:action="@{/elasticsearch}" method="post">
       <div class="form-group">
         <input type="text" class="form-control" th:field="${searchRecipe.searchTerm}" />
@@ -28,7 +28,8 @@
           <td th:text="${recipe.title}"></td>
           <td th:text="${recipe.pageNumber}"></td>
           <td>
-            <div th:each="ingredient: ${recipe.ingredients}" th:text="${ingredient}"></div>
+            <button class="btn-small btn-primary ingredient-display">+</button>
+            <div style="display:none;" class="ingredientList" th:each="ingredient: ${recipe.ingredients}" th:text="${ingredient}"></div>
           </td>
         </tr>
       </tbody>
