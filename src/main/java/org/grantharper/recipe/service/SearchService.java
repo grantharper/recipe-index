@@ -1,5 +1,7 @@
 package org.grantharper.recipe.service;
 
+import org.elasticsearch.action.get.GetRequest;
+import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -25,6 +27,7 @@ public class SearchService
 {
   private static final Logger logger = LoggerFactory.getLogger(SearchService.class);
   private static final String RECIPE_INDEX_NAME = "recipe";
+  private static final String DOC_TYPE = "doc";
 
   private RestHighLevelClient restHighLevelClient;
 
@@ -39,6 +42,24 @@ public class SearchService
     this.restHighLevelClient = restHighLevelClient;
   }
 
+  public RecipeSearchResult getRecipeById(String id)
+  {
+    logger.info("querying index for id=" + id);
+
+    GetRequest getRequest = new GetRequest(RECIPE_INDEX_NAME, DOC_TYPE, id);
+    RecipeSearchResult recipeSearchResult = new RecipeSearchResult();
+    try {
+      GetResponse getResponse = restHighLevelClient.get(getRequest);
+      if (getResponse.isExists()) {
+        Map<String, Object> recipeMap = getResponse.getSourceAsMap();
+        recipeSearchResult = convertResultMaptoRecipeSearchResult(recipeMap);
+      }
+    } catch (IOException e) {
+      logger.error("error retrieving recipe with id=" + id, e);
+    }
+    return recipeSearchResult;
+  }
+
   public List<RecipeSearchResult> searchElasticsearchForIngredients(String ingredientSearch)
   {
     logger.info("performing search: " + ingredientSearch);
@@ -48,21 +69,27 @@ public class SearchService
 
     for (SearchHit searchHit : searchHits.getHits()) {
       Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();
-      String pageId = (String) sourceAsMap.get("pageId");
-      String book = (String) sourceAsMap.get("book");
-      String title = (String) sourceAsMap.get("title");
-      List<String> ingredients = (List<String>) sourceAsMap.get("ingredients");
-      String result = "title: " + title + ", location: " + book + "-" + pageId;
-      logger.debug(result);
-      RecipeSearchResult recipePage = new RecipeSearchResult();
-      recipePage.setBook(book);
-      recipePage.setTitle(title);
-      recipePage.setPageNumber(pageId);
-      recipePage.setIngredients(ingredients);
+      RecipeSearchResult recipePage = convertResultMaptoRecipeSearchResult(sourceAsMap);
       locatedRecipes.add(recipePage);
     }
 
     return locatedRecipes;
+  }
+
+  RecipeSearchResult convertResultMaptoRecipeSearchResult(Map<String, Object> sourceAsMap)
+  {
+    String pageId = (String) sourceAsMap.get("pageId");
+    String book = (String) sourceAsMap.get("book");
+    String title = (String) sourceAsMap.get("title");
+    List<String> ingredients = (List<String>) sourceAsMap.get("ingredients");
+    String result = "title: " + title + ", location: " + book + "-" + pageId;
+    logger.debug(result);
+    RecipeSearchResult recipeSearchResult = new RecipeSearchResult();
+    recipeSearchResult.setBook(book);
+    recipeSearchResult.setTitle(title);
+    recipeSearchResult.setPageNumber(pageId);
+    recipeSearchResult.setIngredients(ingredients);
+    return recipeSearchResult;
   }
 
   String displayIngredients(List<String> ingredientArray)
