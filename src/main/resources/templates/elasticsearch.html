@@ -4,12 +4,7 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container">
-  <div class="jumbotron">
-    <h1 class="display-4" th:text="'Welcome to ' + #{app.title}"></h1>
-    <p class="lead">Search all of those neglected yet delicious printed recipes</p>
-
-  </div>
-  <p>Search any combination of ingredients</p>
+  <h2>Search any combination of ingredients</h2>
   <div th:replace="fragments/elasticsearch-results-table :: search"></div>
 </div>
 

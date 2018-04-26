@@ -7,14 +7,14 @@ $(document).ready(function() {
 function toggleIngredientListDisplay(displayButton){
   var displayed = false;
   var td = displayButton.parent();
-  var styleAttr = $('div.ingredientList', td).attr('style');
+  var styleAttr = $('ul.ingredientList', td).attr('style');
   if(styleAttr == 'display:visible;'){
     console.log('make invisible');
-    $('div.ingredientList', td).attr('style', 'display:none;');
+    $('ul.ingredientList', td).attr('style', 'display:none;');
     $('button', td).html('+');
   }else{
     console.log('make visible');
-    $('div.ingredientList', td).attr('style', 'display:visible;');
+    $('ul.ingredientList', td).attr('style', 'display:visible;');
     $('button', td).html('-');
   }
 
