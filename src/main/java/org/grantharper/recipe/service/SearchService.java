@@ -118,9 +118,7 @@ public class SearchService
   {
     List<TermQueryBuilder> booleanTerms = new ArrayList<>();
     BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-    //boolQueryBuilder = getBoolQueryBuilderTermStyle(ingredientSearch, boolQueryBuilder);
     boolQueryBuilder = getBoolQueryBuilderMatchStyle(ingredientSearch, boolQueryBuilder);
-    boolQueryBuilder = boolQueryBuilder.must(QueryBuilders.termQuery("book", "Sur La Table"));
     return boolQueryBuilder;
   }
 

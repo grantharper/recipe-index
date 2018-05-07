@@ -27,7 +27,7 @@
     <tbody>
     <tr th:each="recipe : ${searchResults}">
       <td th:text="${recipe.book}"></td>
-      <td th:text="${recipe.title}"></td>
+      <td th:text="${recipe.title}"><a th:href="@{/elasticsearch/recipe?id=SurLaTable} + ${recipe.pageNumber}">Link</a></td>
       <td th:text="${recipe.pageNumber}"></td>
       <td>
         <button class="btn-small ingredient-display">+</button>
