@@ -32,7 +32,7 @@
       <td>
         <button class="btn-small ingredient-display">+</button>
         <ul style="display:none;" class="ingredientList" th:each="ingredient: ${recipe.ingredients}">
-          <li th:text="${ingredient}"></li>
+          <li th:utext="${ingredient}"></li>
         </ul>
       </td>
     </tr>

@@ -82,3 +82,7 @@ div.ui-helper-hidden-accessible {
 	-moz-border-radius: 0px;
 	background-image: none;
 }
+
+.highlight {
+  background-color: yellow;
+}
