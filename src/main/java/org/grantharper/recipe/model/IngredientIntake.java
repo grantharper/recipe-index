@@ -11,13 +11,13 @@ public class IngredientIntake
   @Column(name = "intake_id")
   private Long id;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "ingredient_id")
   private Ingredient ingredient;
 
   private Double amountValue;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "unit_id")
   private MeasurementUnit measurementUnit;
 
