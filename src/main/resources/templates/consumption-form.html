@@ -8,7 +8,7 @@
     <form th:action="@{/food-log/consumption}" method="post">
         <input th:if="${@environment.getActiveProfiles()[0] != 'dev'}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div class="form-group">
-            <input type="text" class="form-control" th:field="${consumption.date}" placeholder="Date" />
+            <input type="text" class="form-control" th:field="${consumption.date}" placeholder="Date - yyyyMMdd" />
             <p class="error" th:if="${#fields.hasErrors('consumption.date')}" th:errors="${consumption.date}"></p>
         </div>
         <div class="form-group">
