@@ -1,6 +1,12 @@
 # Recipe Index
 
-This web application was built to help index and search paper copies of recipes
+This web application was built to help search recipes stored in an elasticsearch index
+
+## Prerequisites
+
+Use the `recipe-ocr` project to populate a `recipe` elasticsearch index with recipes
+
+Update the property file for the desired environment to point to the running elasticsearch server/cluster
 
 ## Environments
 
@@ -13,6 +19,10 @@ To start the service in developer mode, run the following command
 OR 
 
 `./gradlew bootRun -Dspring.profiles.active=dev`
+
+OR
+
+`java -Dspring.profiles.active=dev -jar recipe-index-<version>.jar`
 
 ### Test
 
@@ -35,7 +45,9 @@ For Linux:
 `fuser -k <port>/tcp`
 
 
-## Docker Image
+
+
+## Deprecated Docker Image
 
 An image is published to the following docker hub repo
 
