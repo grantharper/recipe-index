@@ -2,6 +2,21 @@ form.form-inline {
 	margin-bottom: 0px;
 }
 
+th.book {
+  width: 10%
+}
+
+th.title {
+  width: 30%
+}
+th.page {
+  width: 10%
+}
+
+th.ingredients {
+  width: 50%
+}
+
 p.error {
 	color: red;
 }
@@ -66,4 +81,8 @@ div.ui-helper-hidden-accessible {
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	background-image: none;
+}
+
+.highlight {
+  background-color: yellow;
 }
