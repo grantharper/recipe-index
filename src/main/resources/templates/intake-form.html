@@ -8,8 +8,9 @@
     <form th:action="@{/food-log/intake}" method="post">
         <input th:if="${@environment.getActiveProfiles()[0] != 'dev'}" type="hidden" th:name="${_csrf.parameterName}"
                th:value="${_csrf.token}"/>
+        <script th:src="@{/js/ingredient-intake.js}"></script>
         <div class="form-group">
-            <input type="text" class="form-control" th:field="${intake.ingredientName}" placeholder="Ingredient Name"/>
+            <input id="ingredient-input" type="text" class="form-control" th:field="${intake.ingredientName}" placeholder="Ingredient Name"/>
             <p class="error" th:if="${#fields.hasErrors('intake.ingredientName')}"
                th:errors="${intake.ingredientName}"></p>
         </div>
@@ -19,7 +20,7 @@
                th:errors="${intake.amountValue}"></p>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" th:field="${intake.amountUnit}"
+            <input id="measurement-unit-input" type="text" class="form-control" th:field="${intake.amountUnit}"
                    placeholder="Amount Unit"/>
             <p class="error" th:if="${#fields.hasErrors('intake.amountUnit')}"
                th:errors="${intake.amountUnit}"></p>

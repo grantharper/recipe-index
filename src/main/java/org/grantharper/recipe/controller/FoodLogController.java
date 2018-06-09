@@ -9,12 +9,14 @@ import org.grantharper.recipe.validator.FoodLogIntakeValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping(value="/food-log")
@@ -74,6 +76,15 @@ public class FoodLogController
 
     foodLogContract.saveIntake(foodLogIntakePage);
     return "redirect:/food-log/intake";
+  }
+
+  @RequestMapping(value = "/measurement-search", method = RequestMethod.GET)
+  public @ResponseBody
+  ResponseEntity<List<String>> getIngredientSearch(@RequestParam("term") String searchTerm){
+    log.debug("SearchTerm=" + searchTerm);
+    ResponseEntity<List<String>> result = foodLogContract.getMeasurementUnits(searchTerm);
+    log.debug("SearchResponse=" + result);
+    return result;
   }
   
 
