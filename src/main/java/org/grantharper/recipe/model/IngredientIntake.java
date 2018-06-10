@@ -1,6 +1,7 @@
 package org.grantharper.recipe.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class IngredientIntake
@@ -20,6 +21,8 @@ public class IngredientIntake
   @ManyToOne(cascade = CascadeType.PERSIST)
   @JoinColumn(name = "unit_id")
   private MeasurementUnit measurementUnit;
+
+  private LocalDate date;
 
   public Long getId()
   {
@@ -59,5 +62,15 @@ public class IngredientIntake
   public void setMeasurementUnit(MeasurementUnit measurementUnit)
   {
     this.measurementUnit = measurementUnit;
+  }
+
+  public LocalDate getDate()
+  {
+    return date;
+  }
+
+  public void setDate(LocalDate date)
+  {
+    this.date = date;
   }
 }

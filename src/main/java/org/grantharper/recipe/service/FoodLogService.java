@@ -88,6 +88,8 @@ public class FoodLogService implements FoodLogContract
 
     ingredientIntake.setMeasurementUnit(measurementUnit);
 
+    ingredientIntake.setDate(LocalDate.now());
+
     ingredientIntakeRepo.save(ingredientIntake);
   }
 
